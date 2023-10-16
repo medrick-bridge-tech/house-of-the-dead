@@ -1,0 +1,3 @@
+[submodule "Assets/unolit"]
+	path = Assets/unolit
+	url = https://github.com/medrick-bridge-tech/unolit.git
