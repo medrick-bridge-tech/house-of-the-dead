@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class CombinationCodePaper : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //first should check if locker door opens or not
+        if (other.tag == "Player")
+        {
+            Debug.Log("Player triggered");
+        }
     }
 }
