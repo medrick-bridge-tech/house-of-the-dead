@@ -19,16 +19,9 @@ namespace InteractionSystem
                 canBeInteracted = true;
         }
 
-        private void Break()
-        {
-            // dsdas
-        }
-
         private void Update()
         {
-            //Interactable glass = new Interactable();
-            //glass.onInteraction.AddListener(Break);
-            if (canBeInteracted == false)
+                  if (canBeInteracted == false)
                 return;
 
             if (Input.GetKeyDown(Keybindings.InteractionKey))
