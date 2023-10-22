@@ -1151,9 +1151,10 @@ GameObject:
   - component: {fileID: 8031081311455118360}
   - component: {fileID: 8031081311455118357}
   - component: {fileID: 8031081311455118356}
+  - component: {fileID: 1691839736}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1192,7 +1193,7 @@ Animator:
   m_GameObject: {fileID: 7184728182491123467}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 7511bc83f38aa4a48840885dee7613ba, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1f2c5037f9e41224ea0527c94eff9e52, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1245,9 +1246,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d816bf5947e457742a8d537219bcca3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1.8
+  walkSpeed: 2
+  runSpeed: 3
   rotationSpeed: 7
   joystick: {fileID: 0}
+--- !u!114 &1691839736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7184728182491123467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 092b0e38c9f3f094b9d6b90dfd3c143f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7884399547391897628
 GameObject:
   m_ObjectHideFlags: 0
