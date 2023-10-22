@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class StateManager : MonoBehaviour
+public class StateMachine : MonoBehaviour
 {
     private BaseState CurrentState;
     public OnStartState StartState = new OnStartState();
@@ -10,6 +8,7 @@ public class StateManager : MonoBehaviour
     public OnPauseState PauseState = new OnPauseState();
     public OnWinState WinState = new OnWinState();
     public OnLoseState LoseState = new OnLoseState();
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +26,7 @@ public class StateManager : MonoBehaviour
     {
         CurrentState.ExitState(this);
     }
+    
     public void SwitchState(BaseState state)
     {
         CurrentState = state;

@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class OnGamePlayState : BaseState 
 {
-    public override void EnterState(StateManager state)
+    
+    public override void EnterState(StateMachine state)
     {
         // Play sound
         Debug.Log("Enter Game Play State");
     }
-    public override void UpdateState(StateManager state)
+    
+    public override void UpdateState(StateMachine state)
     {
         //Game Logic Runs here
         Debug.Log("Is in Game Play State");
@@ -23,7 +25,8 @@ public class OnGamePlayState : BaseState
             state.SwitchState(state.LoseState);
         }
     }
-    public override void ExitState(StateManager state)
+    
+    public override void ExitState(StateMachine state)
     {
         Debug.Log("Game Play state is now over");
     }

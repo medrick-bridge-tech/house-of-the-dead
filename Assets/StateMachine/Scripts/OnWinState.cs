@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class OnWinState : BaseState
 {
-    public override void EnterState(StateManager state)
+    
+    public override void EnterState(StateMachine state)
     {
         Debug.Log("Start win state");
     }
 
-    public override void UpdateState(StateManager state)
+    public override void UpdateState(StateMachine state)
     {
 
     }
 
-    public override void ExitState(StateManager state)
+    public override void ExitState(StateMachine state)
     {
         
     }
