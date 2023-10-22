@@ -11,17 +11,17 @@ namespace InteractionSystem
 
         public UnityEvent onInteraction;
 
-        private bool canBeInteracted;
+        private bool _canBeInteracted;
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
-                canBeInteracted = true;
+                _canBeInteracted = true;
         }
 
         private void Update()
         {
-            if (canBeInteracted == false)
+            if (_canBeInteracted == false)
                 return;
 
             if (Input.GetKeyDown(Keybindings.InteractionKey))
