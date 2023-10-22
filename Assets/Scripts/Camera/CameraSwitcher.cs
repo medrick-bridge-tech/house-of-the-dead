@@ -23,10 +23,6 @@ public class CameraSwitcher : MonoBehaviour
         {
             SwitchCamera(targetCamera);
         }
-        else
-        {
-            Debug.LogError($"No camera found for tag: {other.tag}");
-        }
     }
 
     private void SwitchCamera(CinemachineVirtualCamera targetCamera)
