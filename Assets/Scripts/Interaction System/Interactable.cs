@@ -21,7 +21,7 @@ namespace InteractionSystem
 
         private void Update()
         {
-                  if (canBeInteracted == false)
+            if (canBeInteracted == false)
                 return;
 
             if (Input.GetKeyDown(Keybindings.InteractionKey))
