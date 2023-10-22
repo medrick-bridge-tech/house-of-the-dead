@@ -1,3 +1,4 @@
+using Settings;
 using UnityEngine;
 
 public class PlayerAnimations : MonoBehaviour
@@ -26,17 +27,17 @@ public class PlayerAnimations : MonoBehaviour
         animator.SetBool("IsWalking", isWalking);
         animator.SetBool("IsRunning", isRunning);
 
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(Keybindings.ThrowKey))
         {
             animator.SetTrigger("Throw");
         }
 
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(Keybindings.PickupKey))
         {
             animator.SetTrigger("PickUp");
         }
         
-        if (Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(Keybindings.AttemptOpenDoorKey))
         {
             animator.SetTrigger("AttemptOpenDoor");
         }
