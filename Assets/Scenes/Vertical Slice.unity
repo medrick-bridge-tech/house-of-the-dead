@@ -204,6 +204,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 674683814, guid: 29a4caea592030d40b9ac0063b563753, type: 3}
+      propertyPath: interationArea
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2102744668, guid: 29a4caea592030d40b9ac0063b563753, type: 3}
+      propertyPath: interationArea
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3802118241543758408, guid: 29a4caea592030d40b9ac0063b563753, type: 3}
       propertyPath: m_Name
       value: Interactable Objects
