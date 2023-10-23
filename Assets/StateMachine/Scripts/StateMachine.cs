@@ -1,36 +1,33 @@
-using UnityEngine;
-
-public class StateMachine : MonoBehaviour
+namespace MyStateMachine
 {
-    private BaseState CurrentState;
-    public OnStartState StartState = new OnStartState();
-    public OnGamePlayState GamePlay = new OnGamePlayState();
-    public OnPauseState PauseState = new OnPauseState();
-    public OnWinState WinState = new OnWinState();
-    public OnLoseState LoseState = new OnLoseState();
-    
-    // Start is called before the first frame update
-    void Start()
+    public class StateMachine
     {
-        CurrentState = StartState;
-        CurrentState.EnterState(this);
-    }
-    
-    // Update is called once per frame
-    void Update()
-    {
-        CurrentState.UpdateState(this);
-    }
+        private State CurrentState;
+        private Graph<State> states;
 
-    void Exit()
-    {
-        CurrentState.ExitState(this);
-    }
-    
-    public void SwitchState(BaseState state)
-    {
-        CurrentState = state;
-        state.EnterState(this);
-        
+        public StateMachine(Graph<State> states, State initialState)
+        {
+            CurrentState = initialState;
+            this.states = states;
+        }
+
+        public void Update()
+        {
+            if (CurrentState == null)
+            {
+                return;
+            }
+
+            CurrentState.UpdateState();
+        }
+
+        public void Transition(State nextState)
+        {
+            CurrentState.ExitState();
+
+            CurrentState = nextState;
+            
+            CurrentState.EnterState();
+        }
     }
 }
