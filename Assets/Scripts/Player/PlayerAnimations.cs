@@ -21,25 +21,20 @@ public class PlayerAnimations : MonoBehaviour
     {
         string state = playerMovement.ReturnState();
 
-        bool isWalking = state == "Walk";
-        bool isRunning = state == "Run";
+        bool isWalking = state == AnimationNames.WALK;
+        bool isRunning = state == AnimationNames.RUN;
 
         animator.SetBool("IsWalking", isWalking);
         animator.SetBool("IsRunning", isRunning);
 
         if (Input.GetKeyDown(Keybindings.ThrowKey))
-        {
             animator.SetTrigger("Throw");
-        }
 
         if (Input.GetKeyDown(Keybindings.PickupKey))
-        {
             animator.SetTrigger("PickUp");
-        }
         
         if (Input.GetKeyDown(Keybindings.AttemptOpenDoorKey))
-        {
             animator.SetTrigger("AttemptOpenDoor");
-        }
+        
     }
 }

@@ -51,6 +51,9 @@ public class PlayerMovement : MonoBehaviour
 
     public string ReturnState()
     {
-        return currentSpeed > 0 ? (joystickMagnitude < joystickRange ? "Walk" : "Run") : "Idle";
+        if (currentSpeed > 0)
+            return joystickMagnitude < joystickRange ? AnimationNames.WALK : AnimationNames.RUN;
+        
+        return AnimationNames.IDLE;
     }
 }

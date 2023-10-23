@@ -20,9 +20,8 @@ public class CameraSwitcher : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (roomCameras.TryGetValue(other.tag, out CinemachineVirtualCamera targetCamera))
-        {
             SwitchCamera(targetCamera);
-        }
+        
     }
 
     private void SwitchCamera(CinemachineVirtualCamera targetCamera)
@@ -34,8 +33,6 @@ public class CameraSwitcher : MonoBehaviour
     private void DisableAllCameras()
     {
         foreach (var camera in roomCameras.Values)
-        {
             camera.gameObject.SetActive(false);
-        }
     }
 }
