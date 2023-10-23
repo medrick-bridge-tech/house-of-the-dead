@@ -1,8 +1,9 @@
 ﻿using Settings;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.TextCore.Text;
 
-    public class Interactable : MonoBehaviour
+public class Interactable : MonoBehaviour
     {
         [SerializeField] private BoxCollider interactionArea;
 

@@ -9,14 +9,9 @@ public class Inventory
     {
         string itemName = itemData.itemName;
         if (items.ContainsKey(itemName))
-        {
-            Debug.Log("ADD " + itemData.name);
             items[itemName]++;
-        }
         else
-        {
-            return;
-        }
+            items.Add(itemName, 1);;
     }
 
     public void RemoveItem(ItemData itemData)
@@ -25,13 +20,9 @@ public class Inventory
         if (items.ContainsKey(itemName))
         {
             if (items[itemName] > 1)
-            {
                 items[itemName]--;
-            }
             else
-            {
                 items.Remove(itemName);
-            }
         }
     }
 }
