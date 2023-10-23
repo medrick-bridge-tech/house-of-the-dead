@@ -11,6 +11,12 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        var gameLoopStateMachineGraph = new Graph<State>();
+        CreateState();
+        CreateStateMachineGraph();
+        stateMachine = new StateMachine(gameLoopStateMachineGraph, standbyState);
+
+            
         void CreateState()
         {
             standbyState = new State(EnterstandbyState, UpdatestandbyState, ExitstandbyState);
@@ -21,8 +27,6 @@ public class GameManager : MonoBehaviour
             pauseState = new State(EnterPauseState, UpdatePauseState, ExitPauseState);
             exitState = new State(EnterQuitState, UpdateQuitState, ExitQuitState);
         }
-
-        var gameLoopStateMachineGraph = new Graph<State>();
         
         void CreateStateMachineGraph()
         {
@@ -46,9 +50,6 @@ public class GameManager : MonoBehaviour
             gameLoopStateMachineGraph.AddEdge(winState,exitState);
             gameLoopStateMachineGraph.AddEdge(loseState,exitState);
         }
-        CreateState();
-        CreateStateMachineGraph();
-        stateMachine = new StateMachine(gameLoopStateMachineGraph, standbyState);
     }
 
     private void Update()
