@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 33088594654576344}
   - component: {fileID: 23502731156243544}
   - component: {fileID: 7939093734863901379}
-  - component: {fileID: 7648490194598372826}
+  - component: {fileID: 1075421458440460552}
   m_Layer: 0
   m_Name: Paper
   m_TagString: Untagged
@@ -98,7 +98,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5505662, y: 0.054283947, z: 0.5718918}
   m_Center: {x: 0.17028308, y: -0.026633974, z: 0.055088162}
---- !u!114 &7648490194598372826
+--- !u!114 &1075421458440460552
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,10 +107,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1801278519735074}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5c608d362ea4019bc8cf0de5eb99d23, type: 3}
+  m_Script: {fileID: 11500000, guid: 8016dfb268ff4a5c90d1c0c70a0c5915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interationArea: {fileID: 7939093734863901379}
+  interactionArea: {fileID: 7939093734863901379}
   onInteraction:
     m_PersistentCalls:
       m_Calls: []
+  itemData: {fileID: 11400000, guid: 045ce20a9cc93904b9d5fd4fa8d63751, type: 2}
