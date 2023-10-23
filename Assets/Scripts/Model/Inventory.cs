@@ -10,12 +10,11 @@ public class Inventory
         string itemName = itemData.itemName;
         if (items.ContainsKey(itemName))
         {
-            Debug.Log("ADD " + itemData.name);
             items[itemName]++;
         }
         else
         {
-            return;
+            items.Add(itemData.name, 1);
         }
     }
 
