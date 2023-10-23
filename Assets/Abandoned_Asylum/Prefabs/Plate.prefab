@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23461514583128968}
   - component: {fileID: 64736935401079468}
   - component: {fileID: 7936029520468783487}
-  - component: {fileID: 8406156683090435745}
+  - component: {fileID: 5141697294802456601}
   m_Layer: 0
   m_Name: Plate
   m_TagString: Untagged
@@ -113,7 +113,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.8865521, y: 0.12566757, z: 1.2293721}
   m_Center: {x: 0.082769394, y: 0.064019784, z: -0.32343695}
---- !u!114 &8406156683090435745
+--- !u!114 &5141697294802456601
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,10 +122,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1769086508513630}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5c608d362ea4019bc8cf0de5eb99d23, type: 3}
+  m_Script: {fileID: 11500000, guid: 8016dfb268ff4a5c90d1c0c70a0c5915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interationArea: {fileID: 7936029520468783487}
+  interactionArea: {fileID: 7936029520468783487}
   onInteraction:
     m_PersistentCalls:
       m_Calls: []
+  itemData: {fileID: 11400000, guid: 9d72e9170a6f3a149b6793c31f393f8d, type: 2}
