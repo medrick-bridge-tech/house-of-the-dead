@@ -15,7 +15,7 @@ public class Inventory
         }
         else
         {
-            return;
+            items[itemName] = 1;
         }
     }
 
