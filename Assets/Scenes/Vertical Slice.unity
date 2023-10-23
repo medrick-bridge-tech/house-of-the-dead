@@ -212,6 +212,14 @@ PrefabInstance:
       propertyPath: interationArea
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 447017666436849460, guid: 29a4caea592030d40b9ac0063b563753, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771960291853329795, guid: 29a4caea592030d40b9ac0063b563753, type: 3}
+      propertyPath: interactionArea
+      value: 
+      objectReference: {fileID: 536921999}
     - target: {fileID: 3802118241543758408, guid: 29a4caea592030d40b9ac0063b563753, type: 3}
       propertyPath: m_Name
       value: Interactable Objects
@@ -260,8 +268,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7939093735440491331, guid: 29a4caea592030d40b9ac0063b563753, type: 3}
+      propertyPath: m_Size.y
+      value: 1.4300046
+      objectReference: {fileID: 0}
+    - target: {fileID: 7939093735440491331, guid: 29a4caea592030d40b9ac0063b563753, type: 3}
+      propertyPath: m_Center.y
+      value: -0.71449435
+      objectReference: {fileID: 0}
+    - target: {fileID: 8382682761021495870, guid: 29a4caea592030d40b9ac0063b563753, type: 3}
+      propertyPath: itemData
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 674683814, guid: 29a4caea592030d40b9ac0063b563753, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 29a4caea592030d40b9ac0063b563753, type: 3}
+--- !u!65 &536921999 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 5344455087327571918, guid: 29a4caea592030d40b9ac0063b563753, type: 3}
+  m_PrefabInstance: {fileID: 536921998}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
