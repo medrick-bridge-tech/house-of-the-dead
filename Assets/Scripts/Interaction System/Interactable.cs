@@ -1,47 +1,38 @@
-﻿using Settings;
+﻿using System;
+using Settings;
 using UnityEngine;
 using UnityEngine.Events;
 
+namespace InteractionSystem
+{
     public class Interactable : MonoBehaviour
     {
-        [SerializeField] private BoxCollider interactionArea;
+        [SerializeField] private BoxCollider interationArea;
 
-        public UnityEvent<Character> onInteraction;
+        public UnityEvent onInteraction;
 
-        private bool _canBeInteracted;
-        private Character _interactor;
+        private bool canBeInteracted;
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
-            {
-                _canBeInteracted = true;
-                _interactor = other.GetComponent<Character>();
-            }
-        }
-        
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.CompareTag("Player"))
-            {
-                _canBeInteracted = false;
-                _interactor = null;
-            }
+                canBeInteracted = true;
         }
 
         private void Update()
         {
-            if (_canBeInteracted == false)
+            if (canBeInteracted == false)
                 return;
 
             if (Input.GetKeyDown(Keybindings.InteractionKey))
-                onInteraction.Invoke(_interactor);
+                onInteraction.Invoke();
         }
 
         private void Reset()
         {
-            interactionArea = GetComponent<BoxCollider>();
-            if (interactionArea == null)
-                interactionArea = gameObject.AddComponent<BoxCollider>();
+            interationArea = GetComponent<BoxCollider>();
+            if (interationArea == null)
+                interationArea = gameObject.AddComponent<BoxCollider>();
         }
     }
+}
