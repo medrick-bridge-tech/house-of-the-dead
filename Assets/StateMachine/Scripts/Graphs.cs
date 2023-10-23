@@ -26,4 +26,9 @@ public class Graph<T> where T : Node
 
         statesGraph[source].Add(destination);
     }
+
+    public List<T> GetNeighbors(T vertex)
+    {
+        return statesGraph[vertex];
+    }
 }

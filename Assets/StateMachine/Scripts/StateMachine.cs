@@ -23,10 +23,11 @@ namespace MyStateMachine
 
         public void Transition(State nextState)
         {
-            CurrentState.ExitState();
-
-            CurrentState = nextState;
+            if (states.GetNeighbors(CurrentState).Contains(nextState) == false)
+                return;
             
+            CurrentState.ExitState();
+            CurrentState = nextState;
             CurrentState.EnterState();
         }
     }

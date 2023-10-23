@@ -3,100 +3,81 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private State stateEvent;
     private StateMachine stateMachine;
-    private bool isStarted = false;
-    private State sleepState;
-    private State startState;
-    private State gameplayState;
-    private State winState;
-    private State loseState;
-    private State pauseState;
-    private State exitState;
+    
+    private bool isStandBy = true;
+    
+    private State standbyState ,startState ,gameplayState ,winState ,loseState ,pauseState ,exitState;
+
     void Start()
     {
-        sleepState = new State(EnterSleepState, UpdateSleepState, ExitSleepState);
-        startState = new State(EnterStartState, UpdateStartState, ExitStartState);
-        gameplayState = new State(EnterGamePlayState, UpdateGamePlayState, ExitGamePlayState);
-        winState = new State(EnterWinState, UpdateWinState, ExitWinState);
-        loseState = new State(EnterLoseState, UpdateLoseState, ExitLoseState);
-        pauseState = new State(EnterPauseState, UpdatePauseState, ExitPauseState);
-        exitState = new State(EnterQuitState, UpdateQuitState, ExitQuitState);
-        
+        void CreateState()
+        {
+            standbyState = new State(EnterstandbyState, UpdatestandbyState, ExitstandbyState);
+            startState = new State(EnterStartState, UpdateStartState, ExitStartState);
+            gameplayState = new State(EnterGamePlayState, UpdateGamePlayState, ExitGamePlayState);
+            winState = new State(EnterWinState, UpdateWinState, ExitWinState);
+            loseState = new State(EnterLoseState, UpdateLoseState, ExitLoseState);
+            pauseState = new State(EnterPauseState, UpdatePauseState, ExitPauseState);
+            exitState = new State(EnterQuitState, UpdateQuitState, ExitQuitState);
+        }
+
         var gameLoopStateMachineGraph = new Graph<State>();
         
-        gameLoopStateMachineGraph.AddVertex(sleepState);
-        gameLoopStateMachineGraph.AddVertex(startState);
-        gameLoopStateMachineGraph.AddVertex(gameplayState);
-        gameLoopStateMachineGraph.AddVertex(winState);
-        gameLoopStateMachineGraph.AddVertex(loseState);
-        gameLoopStateMachineGraph.AddVertex(pauseState);
-        gameLoopStateMachineGraph.AddVertex(exitState);
+        void CreateStateMachineGraph()
+        {
+            gameLoopStateMachineGraph.AddVertex(standbyState);
+            gameLoopStateMachineGraph.AddVertex(startState);
+            gameLoopStateMachineGraph.AddVertex(gameplayState);
+            gameLoopStateMachineGraph.AddVertex(winState);
+            gameLoopStateMachineGraph.AddVertex(loseState);
+            gameLoopStateMachineGraph.AddVertex(pauseState);
+            gameLoopStateMachineGraph.AddVertex(exitState);
         
-        gameLoopStateMachineGraph.AddEdge(sleepState,startState);
-        gameLoopStateMachineGraph.AddEdge(startState, gameplayState);
-        gameLoopStateMachineGraph.AddEdge(startState,pauseState);
-        gameLoopStateMachineGraph.AddEdge(gameplayState,winState);
-        gameLoopStateMachineGraph.AddEdge(gameplayState,loseState);
-        gameLoopStateMachineGraph.AddEdge(gameplayState,pauseState);
-        gameLoopStateMachineGraph.AddEdge(pauseState,startState);
-        gameLoopStateMachineGraph.AddEdge(pauseState,gameplayState);
-        gameLoopStateMachineGraph.AddEdge(pauseState,exitState);
-        gameLoopStateMachineGraph.AddEdge(winState,exitState);
-        gameLoopStateMachineGraph.AddEdge(loseState,exitState);
-        
-        stateMachine = new StateMachine(gameLoopStateMachineGraph, sleepState);
+            gameLoopStateMachineGraph.AddEdge(standbyState,startState);
+            gameLoopStateMachineGraph.AddEdge(startState, gameplayState);
+            gameLoopStateMachineGraph.AddEdge(startState,pauseState);
+            gameLoopStateMachineGraph.AddEdge(gameplayState,winState);
+            gameLoopStateMachineGraph.AddEdge(gameplayState,loseState);
+            gameLoopStateMachineGraph.AddEdge(gameplayState,pauseState);
+            gameLoopStateMachineGraph.AddEdge(pauseState,startState);
+            gameLoopStateMachineGraph.AddEdge(pauseState,gameplayState);
+            gameLoopStateMachineGraph.AddEdge(pauseState,exitState);
+            gameLoopStateMachineGraph.AddEdge(winState,exitState);
+            gameLoopStateMachineGraph.AddEdge(loseState,exitState);
+        }
+        CreateState();
+        CreateStateMachineGraph();
+        stateMachine = new StateMachine(gameLoopStateMachineGraph, standbyState);
     }
 
     private void Update()
     {
         stateMachine.Update();
+        
         if (Input.GetKeyDown(KeyCode.S))
-        {//is in sleep state
-            if (!isStarted)
-            {            
-                stateMachine.Transition(startState);
-                isStarted = true;
-            }
-            else
-            {
-                Debug.Log("Can Not change the state back to start");
-                return;
-            }
-        }
-        if(isStarted && Input.GetKeyDown(KeyCode.G))
-            stateMachine.Transition(gameplayState);//start gameplay state
-        if (!isStarted) 
-        {// before start state
-            if (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.W))
-                Debug.Log("Can Not change the state to win or lose");
-            if(Input.GetKeyDown(KeyCode.P)) 
-                stateMachine.Transition(pauseState);
-        }
-        else 
-        {// is in Game Play state
-            if(Input.GetKeyDown(KeyCode.W)) 
-                stateMachine.Transition(winState);
-            if(Input.GetKeyDown(KeyCode.L)) 
-                stateMachine.Transition(loseState);
-            if(Input.GetKeyDown(KeyCode.P)) 
-                stateMachine.Transition(pauseState);
-        }
-        if(isStarted && Input.GetKeyDown(KeyCode.Q))
-            stateMachine.Transition(exitState);//start gameplay state
+            stateMachine.Transition(startState);
+        if (Input.GetKeyDown(KeyCode.G))
+            stateMachine.Transition(gameplayState);
+        if(Input.GetKeyDown(KeyCode.P))
+            stateMachine.Transition(pauseState);
+        if (Input.GetKeyDown(KeyCode.L))
+            stateMachine.Transition(loseState);
+        if (Input.GetKeyDown(KeyCode.W))
+            stateMachine.Transition(winState);        
     }
 
-    void EnterSleepState()
+    void EnterstandbyState()
     {
         Debug.Log("Sleep State Start");
     }
 
-    void UpdateSleepState()
+    void UpdatestandbyState()
     {
         Debug.Log("Is In Sleep State");
     }
 
-    void ExitSleepState()
+    void ExitstandbyState()
     {
         Debug.Log("Sleep State exit");
     }
