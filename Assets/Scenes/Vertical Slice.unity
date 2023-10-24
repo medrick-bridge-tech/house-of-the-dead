@@ -335,6 +335,8 @@ GameObject:
   m_Component:
   - component: {fileID: 82362385}
   - component: {fileID: 82362386}
+  - component: {fileID: 82362387}
+  - component: {fileID: 82362388}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -361,7 +363,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -192, y: 69.201}
+  m_AnchoredPosition: {x: -195, y: -69.201}
   m_SizeDelta: {x: 290.5266, y: 138.4021}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &82362386
@@ -372,6 +374,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 82362384}
   m_CullTransparentMesh: 1
+--- !u!95 &82362387
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82362384}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f7720dfb315986a4ba12c121b5d49a9e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &82362388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82362384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 599ac1dd140958645bdb2a13743b8c4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryAnim: {fileID: 82362387}
 --- !u!1 &104213925
 GameObject:
   m_ObjectHideFlags: 0
@@ -1847,7 +1883,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d1ae821ab3993914fb8d39b1237ec4ef, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1b982bce0e4cb894e946e628d29b4e27, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3569,7 +3605,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -80.42896, y: 80.727165}
+  m_AnchoredPosition: {x: 99.3, y: 84.4}
   m_SizeDelta: {x: -213.7793, y: -114.9477}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1234632102
@@ -3615,7 +3651,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1234632103}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 82362388}
+        m_TargetAssemblyTypeName: InventoryAnimation, Assembly-CSharp
+        m_MethodName: ShowHideInventory
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1234632103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4754,7 +4802,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 37ecd1173f1d7d44bbfd86dd105dc332, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 59c1829afd0c0c04983e5ef621c360d8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4935,7 +4983,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4f39ac252c051e040b35c5684c281254, type: 3}
+  m_Sprite: {fileID: 21300000, guid: acfdbef51f3bb874b88e08b9c4e6a89a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
