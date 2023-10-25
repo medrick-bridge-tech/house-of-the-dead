@@ -25,4 +25,12 @@ public class Inventory
                 items.Remove(itemName);
         }
     }
+
+    public bool Search(string itemName)
+    {
+        if (items.ContainsKey(itemName))
+            return true;
+        else
+            return false;
+    }
 }
