@@ -337,6 +337,7 @@ GameObject:
   - component: {fileID: 82362386}
   - component: {fileID: 82362387}
   - component: {fileID: 82362388}
+  - component: {fileID: 82362389}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -408,6 +409,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryAnim: {fileID: 82362387}
+--- !u!114 &82362389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82362384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a31a42985a78b874fb69c18943a79649, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 82362389}
+  slots:
+  - {fileID: 1208973385}
+  - {fileID: 909372378}
+  - {fileID: 21490270}
+  - {fileID: 917665673}
+  - {fileID: 1044696590}
+  - {fileID: 223903274}
+  - {fileID: 104213925}
+  - {fileID: 1950998609}
+  - {fileID: 55048188}
+  - {fileID: 1184520772}
+  actionButton: {fileID: 1281634518}
+  bagButton: {fileID: 1234632102}
 --- !u!1 &104213925
 GameObject:
   m_ObjectHideFlags: 0
