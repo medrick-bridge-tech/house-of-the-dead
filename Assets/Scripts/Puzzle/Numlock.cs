@@ -11,14 +11,12 @@ public class Numlock : Puzzle
     [SerializeField] private GameObject key;
     [SerializeField] private string correctCombination = "1836";
     [SerializeField] private AudioClip rattleSound, openSound;
-    [SerializeField] private CinemachineVirtualCamera virtualCamera;
+    [SerializeField] private SetCameraFOV virtualCamera;
     
     private AudioSource audioSource;
     private Animator animator;
     private string currentCombination = "0000";
-    private float rotationSpeed = 6f;
-    private float zoomInFOV = 38f;
-    private float zoomOutFOV = 60f;
+    private float rotationSpeed = 8f;
     private float rotationStep = 36f;
     private bool interactionEnabled = true;
 
@@ -33,18 +31,14 @@ public class Numlock : Puzzle
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         finishButton.onClick.AddListener(OnFinishButtonClicked);
-        virtualCamera.m_Lens.FieldOfView = zoomInFOV;
+        virtualCamera.CameraZoomIn();
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
-        {
+        if (InputManager.Instance.IsTouching() || InputManager.Instance.IsClicking())
             if (interactionEnabled)
-            {
                 HandleInteraction();
-            }
-        }
     }
 
     private void HandleInteraction()
@@ -53,15 +47,9 @@ public class Numlock : Puzzle
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit))
-        {
             for (int wheelNum = 0; wheelNum < numberWheels.Count; wheelNum++)
-            {
                 if (hit.collider.gameObject == numberWheels[wheelNum])
-                {
                     StartCoroutine(RotateNumberWheel(wheelNum));
-                }
-            }
-        }
     }
 
     private void OnFinishButtonClicked()
@@ -72,13 +60,10 @@ public class Numlock : Puzzle
     public override void HandlePuzzleFinish()
     {
         if (currentCombination == correctCombination)
-        {
             OnPuzzleSolved.Invoke();
-        }
+        
         else
-        {
             OnPuzzleFailed.Invoke();
-        }
     }
 
     private void RattleDoor()
@@ -92,7 +77,7 @@ public class Numlock : Puzzle
 
     private void OpenDoor()
     {
-        virtualCamera.m_Lens.FieldOfView = zoomOutFOV;
+        virtualCamera.CameraZoomOut();
         
         if (!audioSource.isPlaying)
         {
