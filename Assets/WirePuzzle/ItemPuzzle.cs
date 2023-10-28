@@ -1,58 +1,50 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ItemPuzzle : Puzzle
 {
     private string _selectedObject;
-    [SerializeField] private List<ItemData> _requairedItems;
-    [SerializeField] private bool IsSolved = false;
-    private List<BoxCollider> _itemBoxCollider;
+    private bool _isSolved = false;
+    [SerializeField] private List<ItemData> requairedItems;
+    [SerializeField] private List<GameObject> objectList;
+    [SerializeField] private InventoryMock _inventoryMock;
     private void Awake()
     {
         OnPuzzleSolved += OpenDoor;
         OnPuzzleFailed += CloseDoor;
-        _itemBoxCollider = new List<BoxCollider>(_requairedItems.Count);
-        for (int i = 0; i < _requairedItems.Count; i++)
-        {
-            _itemBoxCollider.Add(_itemBoxCollider[i].transform.GetChild(i).GetComponent<BoxCollider>());
-            Debug.Log("BoxCollider added");
-        }
     }    
 
     public override void HandlePuzzleFinish()
     {
-        if (CheckItem("Fuse"))
-        {
-            
-        }
-    }
+        bool allActive = false;
 
-    private void Update()
-    {
-        if (Input.touchCount > 0)
+        foreach (GameObject obj in objectList)
         {
-            Touch touch = Input.GetTouch(0);
-
-            if (touch.phase == TouchPhase.Began)
+            if (obj.activeSelf)
             {
-                Ray ray = Camera.main.ScreenPointToRay(touch.position);
-                RaycastHit hit;
-
-                if (Physics.Raycast(ray, out hit))
-                {
-                    foreach (BoxCollider boxCollider in _itemBoxCollider)
-                    {
-                        if (hit.collider == boxCollider)
-                        {
-                            Debug.Log("BoxCollider Touched!");
-                        }
-                    }
-                }
+                allActive = true;
+            }
+            else
+            {
+                allActive = false;
+                break;
             }
         }
-    }
 
+        if (allActive)
+        {
+            Debug.Log("Puzzle Solved");
+            _isSolved = true;
+            OnPuzzleSolved.Invoke();
+        }
+        else
+        {
+            Debug.Log("Puzzle Failed");
+            OnPuzzleFailed.Invoke();
+        }
+    }
+    
     private void OpenDoor()
     {
         //Audio clip of electrician access play
@@ -66,14 +58,43 @@ public class ItemPuzzle : Puzzle
         //Door remain Close
         OnPuzzleFailed?.Invoke();
     }
-
-    private bool CheckItem(string selectedItem)
+    private void Update()
     {
-        foreach (ItemData item in _requairedItems)
+        if (!_isSolved)
         {
-            if (selectedItem == item.itemName)
-                return true;
+            _selectedObject = _inventoryMock.SelectedItem;
+            PutObjects();
+            if (objectList.Count == 0)
+                HandlePuzzleFinish();
+            Debug.Log(objectList.Count);
         }
-        return false;
+    }
+    
+    private bool CheckItem(ItemData selectedItem)
+    {
+        if (_selectedObject == selectedItem.itemName)
+        {
+            Debug.Log("Correct Oject");
+            return true;
+        }
+        else
+            return false;
+    }
+
+    private void PutObjects()
+    {
+        foreach (ItemData item in requairedItems)
+        {
+            if (CheckItem(item))
+            {
+                foreach (GameObject obj in objectList)
+                {
+                    obj.SetActive(true);
+                    objectList.Remove(obj);
+                    break;
+                }
+                break;
+            }
+        }
     }
 }
