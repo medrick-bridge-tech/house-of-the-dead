@@ -76,6 +76,7 @@ public class ItemPuzzle : Puzzle
                 foreach (GameObject obj in objectList)
                 {
                     obj.SetActive(true);
+                    objectList.Remove(obj);
                     _itemNumberToBeSolved--;
                     break;
                 }
