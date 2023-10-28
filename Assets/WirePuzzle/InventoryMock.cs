@@ -12,11 +12,11 @@ public class InventoryMock : MonoBehaviour , ISelectedItem
         }
         else if (Input.GetKeyDown(KeyCode.Keypad2))
         {
-            SelectedItem = "Fuse1";
+            SelectedItem = "Fuse";
         }
         else if (Input.GetKeyDown(KeyCode.Keypad3))
         {
-            SelectedItem = "Fuse2";
+            SelectedItem = "Fuse";
         }
         else
         {

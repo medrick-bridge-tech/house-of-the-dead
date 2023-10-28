@@ -9,6 +9,8 @@ public class ItemPuzzle : Puzzle
     [SerializeField] private List<ItemData> requairedItems;
     [SerializeField] private List<GameObject> objectList;
     [SerializeField] private InventoryMock _inventoryMock;
+    [SerializeField] private int _itemNumberToBeSolved;
+    [SerializeField] private Animator _solveAnimator;
     private void Awake()
     {
         OnPuzzleSolved += OpenDoor;
@@ -17,46 +19,30 @@ public class ItemPuzzle : Puzzle
 
     public override void HandlePuzzleFinish()
     {
-        bool allActive = false;
-
-        foreach (GameObject obj in objectList)
-        {
-            if (obj.activeSelf)
-            {
-                allActive = true;
-            }
-            else
-            {
-                allActive = false;
-                break;
-            }
-        }
-
-        if (allActive)
+        if (_itemNumberToBeSolved == 0)
         {
             Debug.Log("Puzzle Solved");
             _isSolved = true;
             OnPuzzleSolved.Invoke();
         }
-        else
+/*        else
         {
             Debug.Log("Puzzle Failed");
             OnPuzzleFailed.Invoke();
-        }
+        }*/
     }
     
     private void OpenDoor()
     {
+        _solveAnimator.SetTrigger("RoomOneTrigger");
         //Audio clip of electrician access play
         //Door becomes open and event handler unsubscribe 
-        OnPuzzleSolved?.Invoke();
     }
 
     private void CloseDoor()
     {
         //Audio clip of electrician fail play
         //Door remain Close
-        OnPuzzleFailed?.Invoke();
     }
     private void Update()
     {
@@ -64,12 +50,12 @@ public class ItemPuzzle : Puzzle
         {
             _selectedObject = _inventoryMock.SelectedItem;
             PutObjects();
-            if (objectList.Count == 0)
-                HandlePuzzleFinish();
-            Debug.Log(objectList.Count);
         }
+/*        Debug.Log("Solve :" + _isSolved + " Needed GameObjects :" + 
+            objectList.Count + " Selected Object is: " + _selectedObject 
+            + " Took correct item : " + CheckItem(requairedItems[0]));*/
     }
-    
+
     private bool CheckItem(ItemData selectedItem)
     {
         if (_selectedObject == selectedItem.itemName)
@@ -90,9 +76,11 @@ public class ItemPuzzle : Puzzle
                 foreach (GameObject obj in objectList)
                 {
                     obj.SetActive(true);
-                    objectList.Remove(obj);
+                    _itemNumberToBeSolved--;
                     break;
                 }
+                if(_itemNumberToBeSolved == 0)
+                    HandlePuzzleFinish();
                 break;
             }
         }
