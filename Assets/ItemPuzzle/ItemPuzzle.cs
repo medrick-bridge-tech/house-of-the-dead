@@ -21,7 +21,6 @@ public class ItemPuzzle : Puzzle
     {
         if (_itemNumberToBeSolved == 0)
         {
-            Debug.Log("Puzzle Solved");
             _isSolved = true;
             OnPuzzleSolved.Invoke();
         }
@@ -51,16 +50,12 @@ public class ItemPuzzle : Puzzle
             _selectedObject = _inventoryMock.SelectedItem;
             PutObjects();
         }
-/*        Debug.Log("Solve :" + _isSolved + " Needed GameObjects :" + 
-            objectList.Count + " Selected Object is: " + _selectedObject 
-            + " Took correct item : " + CheckItem(requairedItems[0]));*/
     }
 
     private bool CheckItem(ItemData selectedItem)
     {
         if (_selectedObject == selectedItem.itemName)
         {
-            Debug.Log("Correct Oject");
             return true;
         }
         else
