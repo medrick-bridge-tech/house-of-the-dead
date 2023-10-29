@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-public class InventoryUI : Inventory
+public class InventoryUI : MonoBehaviour
 {
     [SerializeField] private Inventory inventory;
 
@@ -16,22 +16,22 @@ public class InventoryUI : Inventory
     private void Awake()
     {
         itemLoader = new ItemLoader();
-        inventory.OnInventoryChange += UpdateSlots;
+        //inventory.OnInventoryChange += UpdateSlots;
         foreach (var slot in slots)
         {
             //slot.GetComponent<Button>().onClick.AddListener(SelectItem);
         }
     }
     
-    private void UpdateSlots(Dictionary<string, int> items)
+    public void UpdateSlots(Dictionary<string, int> items)
     {
-        ClearAllSlots();
+        //ClearAllSlots();
         int i = 0;
         foreach (var item in items)
         {
             var itemName = item.Key;
             // TODO: Set the count UI to item.Value
-            Image slotImage = slots[i].GetComponentInChildren<Image>();
+            Image slotImage = slots[i].transform.GetChild(1).GetComponent<Image>();
             slots[i].transform.GetChild(1).name = itemName;
             slotImage.sprite = itemLoader.GetSprite(itemName);
             i++;

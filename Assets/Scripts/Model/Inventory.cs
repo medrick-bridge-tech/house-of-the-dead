@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Inventory : MonoBehaviour
+public class Inventory
 {
     private Dictionary<string, int> items = new Dictionary<string, int>();
 
-    public event Action<Dictionary<string, int>> OnInventoryChange;
+    //public event Action<Dictionary<string, int>> OnInventoryChange;
 
     public void AddItem(ItemData itemData)
     {
@@ -16,8 +16,10 @@ public class Inventory : MonoBehaviour
             items[itemName]++;
         else
             items.Add(itemName, 1);
-        
-        OnInventoryChange.Invoke(items);
+
+        InventoryUI inventoryUI = GameObject.Find("Inventory").GetComponent<InventoryUI>();
+        inventoryUI.UpdateSlots(items);
+        //OnInventoryChange.Invoke(items);
     }
 
     public void RemoveItem(ItemData itemData)
@@ -31,6 +33,6 @@ public class Inventory : MonoBehaviour
                 items.Remove(itemName);
         }
         
-        OnInventoryChange.Invoke(items);
+        //OnInventoryChange.Invoke(items);
     }
 }
