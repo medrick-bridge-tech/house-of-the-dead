@@ -2,19 +2,26 @@ using DG.Tweening;
 using UnityEngine;
 public class InventoryAnimation : MonoBehaviour
 {
+    private RectTransform _rectTransform;
     private bool isShowing = false;
+
+
+    private void Awake()
+    {
+        _rectTransform = GetComponent<RectTransform>();
+    }
     
     public void ShowHideInventory()
     {
         if (!isShowing)
         {
             isShowing = true;
-            gameObject.transform.DOMove(new Vector3(transform.position.x,transform.position.y + 270,transform.position.z), .2f);
+            _rectTransform.DOAnchorPos(_rectTransform.anchoredPosition + Vector2.up * 138, .2f);
         }
         else
         {
             isShowing = false;
-            gameObject.transform.DOMove(new Vector3(transform.position.x,transform.position.y - 270,transform.position.z), .2f);
+            _rectTransform.DOAnchorPos(_rectTransform.anchoredPosition + Vector2.down * 138, .2f);
         }
             
     }

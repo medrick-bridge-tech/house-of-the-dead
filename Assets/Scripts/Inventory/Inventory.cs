@@ -1,13 +1,16 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 
 public class Inventory
 {
-    private Dictionary<string, int> items = new Dictionary<string, int>();
+    private Dictionary<string, int> items;
 
     public Action<Dictionary<string, int>> OnInventoryChange;
+
+    public Inventory()
+    {
+        items = new Dictionary<string, int>();
+    }
 
     public void AddItem(ItemData itemData)
     {
