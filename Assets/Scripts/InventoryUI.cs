@@ -31,13 +31,12 @@ public class InventoryUI : MonoBehaviour
 
     public void UpdateSlots(Dictionary<string, int> items)
     {
-        //ClearAllSlots();
+        ClearAllSlots();
         int i = 0;
         foreach (var item in items)
         {
             var itemName = item.Key;
             slots[i].Setup(itemName, itemLoader.GetSprite(itemName));
-            // TODO: Set the count UI to item.Value
             i++;
         }
     }
@@ -45,16 +44,13 @@ public class InventoryUI : MonoBehaviour
     private void ClearAllSlots()
     {
         foreach (var slot in slots)
-        {
-            // slot.GetComponentInChildren<Image>().sprite = null;
             slot.Clear();
-        }
+        
     }
 
     private void SelectItemAtIndex(int index)
     {
-        SelectedItem = slots[index].ItemName;
-        Debug.Log("picked");
+        SelectedItem = slots[index].ItemName; ;
     }
     
 }

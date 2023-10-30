@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
-
 public class InventoryAnimation : MonoBehaviour
 {
-    [SerializeField] private Animator inventoryAnim;
     private bool isShowing = false;
     
     public void ShowHideInventory()
@@ -12,12 +9,12 @@ public class InventoryAnimation : MonoBehaviour
         if (!isShowing)
         {
             isShowing = true;
-            inventoryAnim.SetBool("Show",true);
+            gameObject.transform.DOMove(new Vector3(transform.position.x,transform.position.y + 270,transform.position.z), .2f);
         }
         else
         {
             isShowing = false;
-            inventoryAnim.SetBool("Show", false);
+            gameObject.transform.DOMove(new Vector3(transform.position.x,transform.position.y - 270,transform.position.z), .2f);
         }
             
     }

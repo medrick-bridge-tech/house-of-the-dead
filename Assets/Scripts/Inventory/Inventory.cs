@@ -31,6 +31,6 @@ public class Inventory
                 items.Remove(itemName);
         }
         
-        //OnInventoryChange.Invoke(items);
+        OnInventoryChange.Invoke(items);
     }
 }

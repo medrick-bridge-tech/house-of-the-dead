@@ -10,7 +10,7 @@ public class Interactable : MonoBehaviour
         public UnityEvent<Character> onInteraction;
 
         private bool _canBeInteracted;
-        public Character _interactor;
+        private Character _interactor;
 
         private void OnTriggerEnter(Collider other)
         {

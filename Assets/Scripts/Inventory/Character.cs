@@ -4,14 +4,7 @@ public class Character : MonoBehaviour, InventorySystemCharacter
 {
     private Inventory _inventory;
 
-    public Inventory Inventory
-    {
-        get
-        {
-            var inventory = _inventory;
-            return inventory;
-        }
-    }
+    public Inventory Inventory => _inventory;
 
     private void Awake()
     {

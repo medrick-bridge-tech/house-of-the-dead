@@ -6,7 +6,7 @@ namespace DefaultNamespace
     public class ItemPresenter : MonoBehaviour
     {
         [SerializeField] private Image itemImage;
-        //[SerializeField] private Text amountText;
+        // TODO: [SerializeField] private Text amountText;
 
         private string itemName;
 
@@ -16,15 +16,13 @@ namespace DefaultNamespace
         {
             this.itemName = itemName;
             itemImage.sprite = image;
-            // amountText.text = amount.ToString();
+            // TODO: amountText.text = amount.ToString();
         }
 
         public void Clear()
         {
             itemName = "";
             itemImage = null;
-            
-            // TODO: Reset the image
             // TODO: Reset the counter text
         }
     }
