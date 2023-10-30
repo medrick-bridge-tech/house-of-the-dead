@@ -1,9 +1,13 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventory
 {
     private Dictionary<string, int> items = new Dictionary<string, int>();
+
+    public Action<Dictionary<string, int>> OnInventoryChange;
 
     public void AddItem(ItemData itemData)
     {
@@ -11,7 +15,9 @@ public class Inventory
         if (items.ContainsKey(itemName))
             items[itemName]++;
         else
-            items.Add(itemName, 1);;
+            items.Add(itemName, 1);
+
+        OnInventoryChange.Invoke(items);
     }
 
     public void RemoveItem(ItemData itemData)
@@ -24,5 +30,7 @@ public class Inventory
             else
                 items.Remove(itemName);
         }
+        
+        OnInventoryChange.Invoke(items);
     }
 }

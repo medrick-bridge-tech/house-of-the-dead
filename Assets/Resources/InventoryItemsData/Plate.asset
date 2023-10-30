@@ -15,4 +15,4 @@ MonoBehaviour:
   itemName: Plate
   displayName: Plate
   value: 1
-  sprite: {fileID: 21300000, guid: d1ae821ab3993914fb8d39b1237ec4ef, type: 3}
+  sprite: {fileID: 21300000, guid: 1b982bce0e4cb894e946e628d29b4e27, type: 3}
