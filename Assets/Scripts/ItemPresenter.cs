@@ -12,7 +12,7 @@ namespace DefaultNamespace
 
         public string ItemName => itemName;
 
-        public void Setup(string itemName, Sprite image/*, int amount = 1*/)
+        public void Setup(string itemName, Sprite image)
         {
             this.itemName = itemName;
             itemImage.sprite = image;
@@ -22,7 +22,7 @@ namespace DefaultNamespace
         public void Clear()
         {
             itemName = "";
-            itemImage = null;
+            itemImage.sprite = null;
             // TODO: Reset the counter text
         }
     }
