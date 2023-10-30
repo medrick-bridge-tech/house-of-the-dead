@@ -15,4 +15,4 @@ MonoBehaviour:
   itemName: Window Key
   displayName: Window Key
   value: 1
-  sprite: {fileID: 21300000, guid: 4f39ac252c051e040b35c5684c281254, type: 3}
+  sprite: {fileID: 21300000, guid: acfdbef51f3bb874b88e08b9c4e6a89a, type: 3}
