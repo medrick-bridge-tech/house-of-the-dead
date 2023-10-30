@@ -36,7 +36,11 @@ public class Interactable : MonoBehaviour
                 return;
 
             if (Input.GetKeyDown(Keybindings.InteractionKey))
+            {
                 onInteraction.Invoke(_interactor);
+                Destroy(gameObject);
+            }
+                
         }
 
         private void Reset()
