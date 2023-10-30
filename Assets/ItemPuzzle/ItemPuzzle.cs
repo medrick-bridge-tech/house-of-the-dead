@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
+using System.Linq;
 
 public class ItemPuzzle : Puzzle
 {
@@ -9,7 +9,7 @@ public class ItemPuzzle : Puzzle
     [SerializeField] private List<ItemData> requairedItems;
     [SerializeField] private List<GameObject> objectList;
     [SerializeField] private InventoryMock _inventoryMock;
-    [SerializeField] private int _itemNumberToBeSolved;
+    [SerializeField] private string _animationTrigger;
     [SerializeField] private Animator _solveAnimator;
     private void Awake()
     {
@@ -19,30 +19,27 @@ public class ItemPuzzle : Puzzle
 
     public override void HandlePuzzleFinish()
     {
-        if (_itemNumberToBeSolved == 0)
+        if (objectList.Count() == 0)
         {
             _isSolved = true;
             OnPuzzleSolved.Invoke();
         }
-/*        else
+        else
         {
-            Debug.Log("Puzzle Failed");
             OnPuzzleFailed.Invoke();
-        }*/
+        }
     }
     
     private void OpenDoor()
     {
-        _solveAnimator.SetTrigger("RoomOneTrigger");
-        //Audio clip of electrician access play
-        //Door becomes open and event handler unsubscribe 
+        _solveAnimator.SetTrigger(_animationTrigger);
     }
 
     private void CloseDoor()
     {
-        //Audio clip of electrician fail play
-        //Door remain Close
+
     }
+
     private void Update()
     {
         if (!_isSolved)
@@ -52,33 +49,19 @@ public class ItemPuzzle : Puzzle
         }
     }
 
-    private bool CheckItem(ItemData selectedItem)
-    {
-        if (_selectedObject == selectedItem.itemName)
-        {
-            return true;
-        }
-        else
-            return false;
-    }
-
     private void PutObjects()
     {
-        foreach (ItemData item in requairedItems)
+        int itemNumber = requairedItems.Where(x => x.itemName == _selectedObject).Count();
+        if(itemNumber > 0)
         {
-            if (CheckItem(item))
+            GameObject obj = objectList.FirstOrDefault(x => x.activeSelf == false) ;
+            if (obj != null)
             {
-                foreach (GameObject obj in objectList)
-                {
-                    obj.SetActive(true);
-                    objectList.Remove(obj);
-                    _itemNumberToBeSolved--;
-                    break;
-                }
-                if(_itemNumberToBeSolved == 0)
-                    HandlePuzzleFinish();
-                break;
+                obj.SetActive(true);
+                objectList.Remove(obj);
             }
+            if (objectList.Count() == 0)
+                HandlePuzzleFinish();
         }
     }
 }
