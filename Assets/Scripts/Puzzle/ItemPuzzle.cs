@@ -8,7 +8,7 @@ public class ItemPuzzle : Puzzle
     private bool _isSolved = false;
     [SerializeField] private List<ItemData> requairedItems;
     [SerializeField] private List<GameObject> objectList;
-    [SerializeField] private InventoryMock _inventoryMock;
+    [SerializeField] private InventoryUI inventoryUI;
     [SerializeField] private string _animationTrigger;
     [SerializeField] private Animator _solveAnimator;
     private void Awake()
@@ -44,7 +44,7 @@ public class ItemPuzzle : Puzzle
     {
         if (!_isSolved)
         {
-            _selectedObject = _inventoryMock.SelectedItem;
+            _selectedObject = inventoryUI.SelectedItem;
             PutObjects();
         }
     }
