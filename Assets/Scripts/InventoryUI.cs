@@ -1,28 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.UI;
 public class InventoryUI : MonoBehaviour
 {
-    [SerializeField] private Inventory inventory;
+    [SerializeField] private Character owner;
+    private Inventory inventory;
 
-    public List<GameObject> slots;
-    private List<string> slotItemNames;
+    public List<ItemPresenter> slots;
     public Button actionButton;
     public Button bagButton;
     private ItemLoader itemLoader;
 
-    private void Awake()
+    public string SelectedItem { get; private set; }
+
+    private void Start()
     {
+        inventory = owner.Inventory;
         itemLoader = new ItemLoader();
-        //inventory.OnInventoryChange += UpdateSlots;
-        foreach (var slot in slots)
+        inventory.OnInventoryChange += UpdateSlots;
+        for (var i = 0; i < slots.Count; i++)
         {
-            //slot.GetComponent<Button>().onClick.AddListener(SelectItem);
+            var slot = slots[i];
+            var t = i;
+            slot.GetComponentInChildren<Button>().onClick.AddListener(() => SelectItemAtIndex(t));
         }
     }
-    
+
     public void UpdateSlots(Dictionary<string, int> items)
     {
         //ClearAllSlots();
@@ -30,12 +36,9 @@ public class InventoryUI : MonoBehaviour
         foreach (var item in items)
         {
             var itemName = item.Key;
+            slots[i].Setup(itemName, itemLoader.GetSprite(itemName));
             // TODO: Set the count UI to item.Value
-            Image slotImage = slots[i].transform.GetChild(1).GetComponent<Image>();
-            slots[i].transform.GetChild(1).name = itemName;
-            slotImage.sprite = itemLoader.GetSprite(itemName);
             i++;
-            return;
         }
     }
 
@@ -43,16 +46,15 @@ public class InventoryUI : MonoBehaviour
     {
         foreach (var slot in slots)
         {
-            slot.GetComponentInChildren<Image>().sprite = null;
+            // slot.GetComponentInChildren<Image>().sprite = null;
+            slot.Clear();
         }
     }
 
-    public string SelectItem(string itemName)
+    private void SelectItemAtIndex(int index)
     {
-        if (slotItemNames.Contains(itemName))
-            return itemName;
-        else
-            return itemName;
+        SelectedItem = slots[index].ItemName;
+        Debug.Log("picked");
     }
     
 }

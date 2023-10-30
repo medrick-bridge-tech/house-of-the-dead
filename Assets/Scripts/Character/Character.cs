@@ -15,6 +15,6 @@ public class Character : MonoBehaviour, InventorySystemCharacter
 
     private void Awake()
     {
-        _inventory = new Inventory(); //gameObject.AddComponent<Inventory>();
+        _inventory = new Inventory();
     }
 }

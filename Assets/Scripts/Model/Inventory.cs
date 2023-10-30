@@ -7,7 +7,7 @@ public class Inventory
 {
     private Dictionary<string, int> items = new Dictionary<string, int>();
 
-    //public event Action<Dictionary<string, int>> OnInventoryChange;
+    public Action<Dictionary<string, int>> OnInventoryChange;
 
     public void AddItem(ItemData itemData)
     {
@@ -17,9 +17,7 @@ public class Inventory
         else
             items.Add(itemName, 1);
 
-        InventoryUI inventoryUI = GameObject.Find("Inventory").GetComponent<InventoryUI>();
-        inventoryUI.UpdateSlots(items);
-        //OnInventoryChange.Invoke(items);
+        OnInventoryChange.Invoke(items);
     }
 
     public void RemoveItem(ItemData itemData)
