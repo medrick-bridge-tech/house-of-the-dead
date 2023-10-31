@@ -571,6 +571,7 @@ GameObject:
   - component: {fileID: 2491937774992533557}
   - component: {fileID: 2491937774992533558}
   - component: {fileID: 2491937774992533559}
+  - component: {fileID: 2468150826349365005}
   m_Layer: 0
   m_Name: padlock
   m_TagString: Untagged
@@ -728,6 +729,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 886b84368cb8b7541b38242c864f69d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactionArea: {fileID: 2468150826349365005}
+  shouldBeDestroyedOnInteract: 0
+  onInteraction:
+    m_PersistentCalls:
+      m_Calls: []
+  virtualCamera: {fileID: 0}
   finishButton: {fileID: 0}
   numberWheels:
   - {fileID: 2491937774677283480}
@@ -738,4 +745,16 @@ MonoBehaviour:
   correctCombination: 1836
   rattleSound: {fileID: 8300000, guid: 9efd43886efa6a74abb09111a21c49ff, type: 3}
   openSound: {fileID: 8300000, guid: 5d82dfe126ab50445aba07ef720af70c, type: 3}
-  virtualCamera: {fileID: 0}
+--- !u!65 &2468150826349365005
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8288852627883221634}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 11.582056, y: 1, z: 10.0316105}
+  m_Center: {x: 0.14505386, y: 0.000040512536, z: 4.51579}
