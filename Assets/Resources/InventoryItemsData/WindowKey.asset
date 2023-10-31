@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a355cfd375d2bc408150fdb0ded37eb, type: 3}
   m_Name: WindowKey
   m_EditorClassIdentifier: 
-  itemName: Window Key
-  displayName: Window Key
-  value: 1
+  itemName: WindowKey
+  displayName: WindowKey
   sprite: {fileID: 21300000, guid: acfdbef51f3bb874b88e08b9c4e6a89a, type: 3}

@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class CameraSwitcher : MonoBehaviour
 {
+    [SerializeField] private CinemachineBrain cinemachineBrain;
     [SerializeField] private CinemachineVirtualCamera surgeryRoomCamera;
     [SerializeField] private CinemachineVirtualCamera conferenceRoomCamera;
     [SerializeField] private CinemachineVirtualCamera officeRoomCamera;
 
+    private const int puzzleSelectPriority = 3, puzzleDeselectPriority = -1;
+    private const int roomSelectPriority = 2, roomDeselctPriority = 1;
+    
     private Dictionary<string, CinemachineVirtualCamera> roomCameras = new Dictionary<string, CinemachineVirtualCamera>();
-
+    private CinemachineVirtualCamera activeCamera;
+    
     private void Start()
     {
         roomCameras.Add("SurgeryRoom", surgeryRoomCamera);
@@ -20,19 +25,32 @@ public class CameraSwitcher : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (roomCameras.TryGetValue(other.tag, out CinemachineVirtualCamera targetCamera))
-            SwitchCamera(targetCamera);
-        
+            SwitchRoomCamera(targetCamera);
     }
 
-    private void SwitchCamera(CinemachineVirtualCamera targetCamera)
-    {
-        DisableAllCameras();
-        targetCamera.gameObject.SetActive(true);
-    }
-
-    private void DisableAllCameras()
+    private void SwitchRoomCamera(CinemachineVirtualCamera targetCamera)
     {
         foreach (var camera in roomCameras.Values)
-            camera.gameObject.SetActive(false);
+            camera.Priority = roomDeselctPriority;
+
+        SetBlendStyle(CinemachineBlendDefinition.Style.Cut);
+        targetCamera.Priority = roomSelectPriority;
+    }
+    
+    public void SwitchToPuzzleCamera(CinemachineVirtualCamera targetCamera)
+    {
+        SetBlendStyle(CinemachineBlendDefinition.Style.EaseInOut);
+        targetCamera.Priority = puzzleSelectPriority;
+        activeCamera = targetCamera;
+    }
+
+    public void DefocusPuzzleCamera()
+    {
+        activeCamera.Priority = puzzleDeselectPriority;
+    }
+
+    private void SetBlendStyle(CinemachineBlendDefinition.Style blendStyle)
+    {
+        cinemachineBrain.m_DefaultBlend.m_Style = blendStyle;
     }
 }
