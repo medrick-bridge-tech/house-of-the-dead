@@ -1,67 +1,59 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
-public class ItemPuzzle : Puzzle
+public class ItemPuzzle : Puzzle 
 {
     private string _selectedObject;
     private bool _isSolved = false;
-    [SerializeField] private List<ItemData> requairedItems;
-    [SerializeField] private List<GameObject> objectList;
-    [SerializeField] private InventoryUI inventoryUI;
-    [SerializeField] private string _animationTrigger;
+    private Inventory _myInventory;
+
+    [SerializeField] private List<ItemData> requiredItems;
+    [SerializeField] private Character _characterInventory;
+    [SerializeField] private InventoryUI _inventoryUI;
     [SerializeField] private Animator _solveAnimator;
-    private void Awake()
+    
+
+    private void Start()
     {
         OnPuzzleSolved += OpenDoor;
-        OnPuzzleFailed += CloseDoor;
+        _myInventory = _characterInventory.Inventory;  
     }    
 
     public override void HandlePuzzleFinish()
     {
-        if (objectList.Count() == 0)
-        {
-            _isSolved = true;
-            OnPuzzleSolved.Invoke();
-        }
-        else
-        {
-            OnPuzzleFailed.Invoke();
-        }
+        _isSolved = true;
+        OnPuzzleSolved.Invoke();
     }
     
     private void OpenDoor()
     {
-        _solveAnimator.SetTrigger(_animationTrigger);
-    }
-
-    private void CloseDoor()
-    {
-
+        _solveAnimator.SetTrigger("RoomOneTrigger");
     }
 
     private void Update()
     {
-        if (!_isSolved)
+        if (!_isSolved && _inventoryUI.SelectedItem != null)
         {
-            _selectedObject = inventoryUI.SelectedItem;
-            PutObjects();
+            _selectedObject = _inventoryUI.SelectedItem;
+            CheckRequiredItems(_selectedObject);
         }
     }
 
-    private void PutObjects()
+    private void CheckRequiredItems(string selectedItem)
     {
-        int itemNumber = requairedItems.Where(x => x.itemName == _selectedObject).Count();
-        if(itemNumber > 0)
+        foreach (ItemData item in requiredItems)
         {
-            GameObject obj = objectList.FirstOrDefault(x => x.activeSelf == false) ;
-            if (obj != null)
+            if (selectedItem == item.itemName)
             {
-                obj.SetActive(true);
-                objectList.Remove(obj);
+                requiredItems.Remove(item);
+                _myInventory.RemoveItem(item);
+                break;
             }
-            if (objectList.Count() == 0)
-                HandlePuzzleFinish();
+        } 
+        if (requiredItems.Count == 0)
+        {
+            HandlePuzzleFinish();
+            Debug.Log("Finish");
         }
     }
 }
