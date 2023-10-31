@@ -11,8 +11,8 @@ public class Numlock : Puzzle
     [SerializeField] private GameObject key;
     [SerializeField] private string correctCombination = "1836";
     [SerializeField] private AudioClip rattleSound, openSound;
-    [SerializeField] private SetCameraFOV virtualCamera;
-    
+    private SetCameraFOV cameraFov;
+
     private AudioSource audioSource;
     private Animator animator;
     private string currentCombination = "0000";
@@ -20,10 +20,12 @@ public class Numlock : Puzzle
     private float rotationStep = 36f;
     private bool interactionEnabled = true;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         OnPuzzleFailed += RattleDoor;
         OnPuzzleSolved += OpenDoor;
+        cameraFov = virtualCamera.GetComponent<SetCameraFOV>();
     }
 
     private void Start()
@@ -31,11 +33,13 @@ public class Numlock : Puzzle
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         finishButton.onClick.AddListener(OnFinishButtonClicked);
-        virtualCamera.CameraZoomIn();
+        cameraFov.CameraZoomIn();
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
+
         if (InputManager.Instance.IsTouching() || InputManager.Instance.IsClicking())
             if (interactionEnabled)
                 HandleInteraction();
@@ -77,7 +81,7 @@ public class Numlock : Puzzle
 
     private void OpenDoor()
     {
-        virtualCamera.CameraZoomOut();
+        cameraFov.CameraZoomOut();
         
         if (!audioSource.isPlaying)
         {
@@ -124,6 +128,12 @@ public class Numlock : Puzzle
     {
         key.SetActive(true);
         Destroy(this.gameObject);
+    }
+
+    protected override void HandleCharacterInteraction(Character character)
+    {
+        base.HandleCharacterInteraction(character);
+        finishButton.gameObject.SetActive(true);
     }
 
 }

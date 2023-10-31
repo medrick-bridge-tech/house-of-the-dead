@@ -6,7 +6,8 @@ using UnityEngine.TextCore.Text;
 public class Interactable : MonoBehaviour
     {
         [SerializeField] private BoxCollider interactionArea;
-        [SerializeField] private bool shouldDestroyOnInteraction = true;
+        [SerializeField] private bool shouldBeDestroyedOnInteract = true;
+
         public UnityEvent<Character> onInteraction;
 
         private bool _canBeInteracted;
@@ -30,7 +31,7 @@ public class Interactable : MonoBehaviour
             }
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             if (_canBeInteracted == false)
                 return;
@@ -38,7 +39,7 @@ public class Interactable : MonoBehaviour
             if (Input.GetKeyDown(Keybindings.InteractionKey))
             {
                 onInteraction.Invoke(_interactor);
-                if(shouldDestroyOnInteraction)
+                if (shouldBeDestroyedOnInteract)
                     Destroy(gameObject);
             }
                 
