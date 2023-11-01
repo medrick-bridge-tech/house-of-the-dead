@@ -502,7 +502,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 447135129}
   m_LocalRotation: {x: -0.00003310456, y: -0.9999962, z: 0.0017986652, w: 0.0021091532}
-  m_LocalPosition: {x: 20.33308, y: 1.918489, z: -74.648636}
+  m_LocalPosition: {x: 20.33, y: 1.92, z: -74.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8091,7 +8091,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: FuseBox
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6493591715250078739, guid: 9ec621d1d2fbddf44a9a6631e84f5c40, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6493591715250078739, guid: 9ec621d1d2fbddf44a9a6631e84f5c40, type: 3}
+    - {fileID: 8311356259463175355, guid: 9ec621d1d2fbddf44a9a6631e84f5c40, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9ec621d1d2fbddf44a9a6631e84f5c40, type: 3}
 --- !u!4 &8589005643115413144
 Transform:
