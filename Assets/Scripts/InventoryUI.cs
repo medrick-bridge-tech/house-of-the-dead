@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using DefaultNamespace;
 using UnityEngine;
@@ -11,17 +12,20 @@ public class InventoryUI : MonoBehaviour
     public List<ItemPresenter> slots;
     public Button actionButton;
     public Button bagButton;
-    private ItemLoader itemLoader;
-    private Inventory inventory;
+    private ItemLoader _itemLoader;
+    private Inventory _inventory;
+    [SerializeField] private InventoryAnimation _inventoryAnimation;
+    [SerializeField] private GameObject zoomPanel;
 
 
     public string SelectedItem { get; private set; }
 
     private void Start()
     {
-        inventory = owner.Inventory;
-        itemLoader = new ItemLoader();
-        inventory.OnInventoryChange += UpdateSlots;
+        //_inventoryAnimation = new InventoryAnimation();
+        _inventory = owner.Inventory;
+        _itemLoader = new ItemLoader();
+        _inventory.OnInventoryChange += UpdateSlots;
 
         for (var i = 0; i < slots.Count; i++)
         {
@@ -38,7 +42,7 @@ public class InventoryUI : MonoBehaviour
         foreach (var item in items)
         {
             var itemName = item.Key;
-            slots[i].Setup(itemName, itemLoader.GetSprite(itemName));
+            slots[i].Setup(itemName, _itemLoader.GetSprite(itemName));
             i++;
         }
     }
@@ -51,6 +55,18 @@ public class InventoryUI : MonoBehaviour
 
     private void SelectItemAtIndex(int index)
     {
-        SelectedItem = slots[index].ItemName; ;
+        SelectedItem = slots[index].ItemName;
+        if (_inventoryAnimation.isMagnifierSelected)
+        {
+            zoomPanel.transform.GetChild(0).gameObject.SetActive(true);
+            var sprite = slots[index].transform.GetChild(1).GetComponent<Image>().sprite;
+            zoomPanel.transform.GetChild(0).transform.GetChild(1).GetComponent<Image>().sprite = sprite;
+        }
+    }
+
+    public void HideZoomPanel()
+    {
+        zoomPanel.transform.GetChild(0).gameObject.SetActive(false);
+        _inventoryAnimation.MagnifierSelected();
     }
 }
