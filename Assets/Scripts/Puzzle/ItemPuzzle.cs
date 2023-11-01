@@ -40,7 +40,7 @@ public class ItemPuzzle : Puzzle
         base.Update();
         if (!_isSolved && _inventoryUI.SelectedItem != null)
         {
-            HandleCharacterInteraction(_character);
+            //HandleCharacterInteraction(_character);
             _selectedObject = _inventoryUI.SelectedItem;
             Check_requiredItems(_selectedObject);
         }
