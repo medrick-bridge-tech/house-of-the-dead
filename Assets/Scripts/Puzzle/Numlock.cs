@@ -28,8 +28,9 @@ public class Numlock : Puzzle
         cameraFov = virtualCamera.GetComponent<SetCameraFOV>();
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         finishButton.onClick.AddListener(OnFinishButtonClicked);
