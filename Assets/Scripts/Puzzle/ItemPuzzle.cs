@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 public class ItemPuzzle : Puzzle 
 {
+    private int _itemToBePlaced;
     public string _selectedObject;
     private bool _isSolved = false;
     private AudioSource _listener;
@@ -55,19 +56,15 @@ public class ItemPuzzle : Puzzle
 
     private void CheckRequiredItems(string selectedItem)
     {
-        foreach (ItemData item in _requiredItems)
-        {
-            if (selectedItem == item.itemName)
-            {
-                _requiredItems.Remove(item);
-                _myInventory.RemoveItem(item);
-                break;
-            }
-        } 
-        if (_requiredItems.Count == 0)
+        if (_requiredItems.Count == _itemToBePlaced)
         {
             HandlePuzzleFinish();
             gameObject.GetComponent<BoxCollider>().enabled = false;
         }
+    }
+
+    public void AddItemToBePlaced()
+    {
+        _itemToBePlaced++;
     }
 }

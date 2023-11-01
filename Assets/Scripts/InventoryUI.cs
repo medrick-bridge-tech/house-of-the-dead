@@ -14,6 +14,7 @@ public class InventoryUI : MonoBehaviour
     private ItemLoader itemLoader;
     private Inventory inventory;
 
+    public Inventory Inventory => inventory;
 
     public string SelectedItem { get; private set; }
 

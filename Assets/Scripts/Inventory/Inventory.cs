@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-
+using UnityEngine;
 public class Inventory
 {
     private Dictionary<string, int> items;
@@ -35,5 +35,19 @@ public class Inventory
         }
         
         OnInventoryChange.Invoke(items);
+    }
+
+    public ItemData ReturnItemData(string ItemDataName)
+    {
+        ItemData _itemToBeReturned;
+        if (items.ContainsKey(ItemDataName))
+        {
+            _itemToBeReturned = Resources.Load<ItemData>("InventoryItemsData/" + ItemDataName);
+            return _itemToBeReturned;
+        }
+        else
+        {
+            return null;
+        }
     }
 }
