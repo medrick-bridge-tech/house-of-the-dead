@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ItemPuzzle : Puzzle 
 {
-    private string _selectedObject;
+    public string _selectedObject;
     private bool _isSolved = false;
     private AudioSource _listener;
     private Inventory _myInventory;
@@ -39,7 +39,7 @@ public class ItemPuzzle : Puzzle
         if (!_isSolved && _inventoryUI.SelectedItem != null)
         {
             _selectedObject = _inventoryUI.SelectedItem;
-            Check_requiredItems(_selectedObject);
+            CheckRequiredItems(_selectedObject);
         }
     }
 
@@ -53,7 +53,7 @@ public class ItemPuzzle : Puzzle
         }
     }
 
-    private void Check_requiredItems(string selectedItem)
+    private void CheckRequiredItems(string selectedItem)
     {
         foreach (ItemData item in _requiredItems)
         {
