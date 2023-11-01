@@ -892,6 +892,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   virtualCamera: {fileID: 447135131}
+  _selectedObject: 
   _requiredItems:
   - {fileID: 11400000, guid: 364759d7309b2b34ea808876eb6ba9be, type: 2}
   - {fileID: 11400000, guid: 8f8d8ab4328fdd846b297df59362ba80, type: 2}
@@ -1026,7 +1027,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &705507994
 Light:
   m_ObjectHideFlags: 0
@@ -8291,15 +8292,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3312286999803552302, guid: 9ec621d1d2fbddf44a9a6631e84f5c40, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.5
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3312286999803552302, guid: 9ec621d1d2fbddf44a9a6631e84f5c40, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.5
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3312286999803552302, guid: 9ec621d1d2fbddf44a9a6631e84f5c40, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 6493591715250078739, guid: 9ec621d1d2fbddf44a9a6631e84f5c40, type: 3}
       propertyPath: m_Enabled
