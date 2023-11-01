@@ -46,7 +46,7 @@ public class InputManager : MonoBehaviour
         return Input.GetMouseButtonDown(0);
     }
 
-    public void InteractionButtonClicked()
+    private void InteractionButtonClicked()
     {
         interactionKeyPressed = true;
     }
