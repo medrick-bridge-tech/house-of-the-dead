@@ -22,7 +22,6 @@ public class InventoryUI : MonoBehaviour
 
     private void Start()
     {
-        //_inventoryAnimation = new InventoryAnimation();
         _inventory = owner.Inventory;
         _itemLoader = new ItemLoader();
         _inventory.OnInventoryChange += UpdateSlots;
