@@ -10,10 +10,7 @@ public class GameManager : MonoBehaviour
     private State startState ,gameplayState ,winState ,loseState ,pauseState ,exitState;
 
     private float startAnimationTimer = 11.5f;
-    [SerializeField] GameObject joystick;
-    [SerializeField] GameObject winPanelPrefab;
-    [SerializeField] GameObject losePanelPrefab;
-    [SerializeField] GameObject pausePanelPrefab;
+
 
     void Start()
     {
@@ -28,8 +25,8 @@ public class GameManager : MonoBehaviour
         {
             startState = new State(EnterStartState, () => { }, () => { });
             gameplayState = new State(EnterGamePlayState, UpdateGamePlayState, ExitGamePlayState);
-            winState = new State(EnterWinState, () => { }, ExitWinState);
-            loseState = new State(EnterLoseState, () => { }, ExitLoseState);
+            winState = new State(EnterWinState, () => { }, () => { });
+            loseState = new State(EnterLoseState, () => { }, () => { });
             pauseState = new State(EnterPauseState, () => { }, ExitPauseState);
             exitState = new State(EnterQuitState, () => { }, () => { });
         }
@@ -69,13 +66,13 @@ public class GameManager : MonoBehaviour
 
     void EnterStartState()
     {
-        joystick.SetActive(false);
+        UIManager.Instance.HideJoyStick();
         StartCoroutine(StartDelay());
     }
 
     void EnterGamePlayState()
     {
-        joystick.SetActive(true);
+        UIManager.Instance.ShowJoyStick();
     }
 
     void UpdateGamePlayState()
@@ -90,7 +87,7 @@ public class GameManager : MonoBehaviour
 
     void EnterWinState()
     {
-        winPanelPrefab.SetActive(true);
+        UIManager.Instance.ShowWinPanel();
     }
 
     void ExitWinState()
@@ -100,7 +97,7 @@ public class GameManager : MonoBehaviour
 
     void EnterLoseState()
     {
-        losePanelPrefab.SetActive(true);
+        UIManager.Instance.ShowLosePanel();
     }
 
     void ExitLoseState()
@@ -111,8 +108,8 @@ public class GameManager : MonoBehaviour
     void EnterPauseState()
     {
         Time.timeScale = 0;
-        joystick.SetActive(false);
-        pausePanelPrefab.SetActive(true);
+        UIManager.Instance.HideJoyStick();
+        UIManager.Instance.ShowPausePanel();
         // TODO
         // if back to game button selected 
         // joystick.SetActive(true);
@@ -124,7 +121,7 @@ public class GameManager : MonoBehaviour
     void ExitPauseState()
     {
         Time.timeScale = 1;
-        joystick.SetActive(true);
+        UIManager.Instance.ShowJoyStick();
     }
     void EnterQuitState()
     {
