@@ -9,8 +9,12 @@ public class GameManager : MonoBehaviour
     
     private State startState ,gameplayState ,winState ,loseState ,pauseState ,exitState;
 
-    private float startAnimationTimer = 11.4f;
+    private float startAnimationTimer = 11.5f;
     [SerializeField] GameObject joystick;
+    [SerializeField] GameObject winPanelPrefab;
+    [SerializeField] GameObject losePanelPrefab;
+    [SerializeField] GameObject pausePanelPrefab;
+
     void Start()
     {
         var gameLoopStateMachineGraph = new Graph<State>();
@@ -86,7 +90,7 @@ public class GameManager : MonoBehaviour
 
     void EnterWinState()
     {
-         //show message
+        winPanelPrefab.SetActive(true);
     }
 
     void ExitWinState()
@@ -96,7 +100,7 @@ public class GameManager : MonoBehaviour
 
     void EnterLoseState()
     {
-        //show message
+        losePanelPrefab.SetActive(true);
     }
 
     void ExitLoseState()
@@ -107,6 +111,8 @@ public class GameManager : MonoBehaviour
     void EnterPauseState()
     {
         Time.timeScale = 0;
+        joystick.SetActive(false);
+        pausePanelPrefab.SetActive(true);
         // TODO
         // if back to game button selected 
         // joystick.SetActive(true);
@@ -118,6 +124,7 @@ public class GameManager : MonoBehaviour
     void ExitPauseState()
     {
         Time.timeScale = 1;
+        joystick.SetActive(true);
     }
     void EnterQuitState()
     {
