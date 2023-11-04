@@ -39,6 +39,6 @@ public class Inventory
 
     public bool HasItem(string itemName)
     {
-        return items.ContainsKey(itemName)
+        return items.ContainsKey(itemName);
     }
 }

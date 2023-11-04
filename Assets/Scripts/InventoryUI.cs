@@ -1,6 +1,8 @@
 
+using System;
 using System.Collections.Generic;
 using DefaultNamespace;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,17 +10,22 @@ public class InventoryUI : MonoBehaviour
 {
     [SerializeField] private Character owner;
 
-    public List<ItemPresenter> slots;
-    public Button actionButton;
-    public Button bagButton;
-    private Inventory inventory;
-
+    [SerializeField] private List<ItemPresenter> slots;
+    [SerializeField] private Button actionButton;
+    [SerializeField] private Button bagButton;
+    [SerializeField] private InventoryAnimation _inventoryAnimation;
+    [SerializeField] private GameObject zoomPanel;
+    
+    private Image _zoomPanelImage;
+    private Inventory _inventory;
     private static InventoryUI _instance;
+
     public static InventoryUI Instance
     {
         get { return _instance; }
     }
-    public Inventory Inventory => inventory;
+    
+    public Inventory Inventory => _inventory;
 
     public string SelectedItem { get; private set; }
 
@@ -28,8 +35,9 @@ public class InventoryUI : MonoBehaviour
     }
     private void Start()
     {
-        inventory = owner.Inventory;
-        inventory.OnInventoryChange += UpdateSlots;
+        _inventory = owner.Inventory;
+        _inventory.OnInventoryChange += UpdateSlots;
+        _zoomPanelImage = zoomPanel.transform.GetChild(0).transform.GetChild(1).GetComponent<Image>();
 
         for (var i = 0; i < slots.Count; i++)
         {
@@ -59,6 +67,18 @@ public class InventoryUI : MonoBehaviour
 
     private void SelectItemAtIndex(int index)
     {
-        SelectedItem = slots[index].ItemName; ;
+        SelectedItem = slots[index].ItemName;
+        if (_inventoryAnimation.IsMagnifierSelected)
+        {
+            zoomPanel.transform.GetChild(0).gameObject.SetActive(true);
+            var sprite = slots[index].imageComponent.sprite;
+            _zoomPanelImage.sprite = sprite;
+        }
+    }
+
+    public void HideZoomPanel()
+    {
+        zoomPanel.transform.GetChild(0).gameObject.SetActive(false);
+        _inventoryAnimation.MagnifierSelected();
     }
 }
