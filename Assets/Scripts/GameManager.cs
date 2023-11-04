@@ -1,36 +1,37 @@
 using MyStateMachine;
 using UnityEngine;
+using System;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
     private StateMachine stateMachine;
     
-    private bool isStandBy = true;
-    
-    private State standbyState ,startState ,gameplayState ,winState ,loseState ,pauseState ,exitState;
+    private State startState ,gameplayState ,winState ,loseState ,pauseState ,exitState;
 
+    private float startAnimationTimer = 11.4f;
+    [SerializeField] GameObject joystick;
     void Start()
     {
         var gameLoopStateMachineGraph = new Graph<State>();
         CreateState();
         CreateStateMachineGraph();
-        stateMachine = new StateMachine(gameLoopStateMachineGraph, standbyState);
+        stateMachine = new StateMachine(gameLoopStateMachineGraph, startState);
+        stateMachine.StartMachine();
 
-            
+
         void CreateState()
         {
-            standbyState = new State(EnterstandbyState, UpdatestandbyState, ExitstandbyState);
-            startState = new State(EnterStartState, UpdateStartState, ExitStartState);
+            startState = new State(EnterStartState, () => { }, () => { });
             gameplayState = new State(EnterGamePlayState, UpdateGamePlayState, ExitGamePlayState);
-            winState = new State(EnterWinState, UpdateWinState, ExitWinState);
-            loseState = new State(EnterLoseState, UpdateLoseState, ExitLoseState);
-            pauseState = new State(EnterPauseState, UpdatePauseState, ExitPauseState);
-            exitState = new State(EnterQuitState, UpdateQuitState, ExitQuitState);
+            winState = new State(EnterWinState, () => { }, ExitWinState);
+            loseState = new State(EnterLoseState, () => { }, ExitLoseState);
+            pauseState = new State(EnterPauseState, () => { }, ExitPauseState);
+            exitState = new State(EnterQuitState, () => { }, () => { });
         }
         
         void CreateStateMachineGraph()
         {
-            gameLoopStateMachineGraph.AddVertex(standbyState);
             gameLoopStateMachineGraph.AddVertex(startState);
             gameLoopStateMachineGraph.AddVertex(gameplayState);
             gameLoopStateMachineGraph.AddVertex(winState);
@@ -38,7 +39,6 @@ public class GameManager : MonoBehaviour
             gameLoopStateMachineGraph.AddVertex(pauseState);
             gameLoopStateMachineGraph.AddVertex(exitState);
         
-            gameLoopStateMachineGraph.AddEdge(standbyState,startState);
             gameLoopStateMachineGraph.AddEdge(startState, gameplayState);
             gameLoopStateMachineGraph.AddEdge(startState,pauseState);
             gameLoopStateMachineGraph.AddEdge(gameplayState,winState);
@@ -52,123 +52,75 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    IEnumerator StartDelay()
+    {
+        yield return new WaitForSeconds(startAnimationTimer);
+        stateMachine.Transition(gameplayState);
+    }
+
     private void Update()
     {
         stateMachine.Update();
-        
-        if (Input.GetKeyDown(KeyCode.S))
-            stateMachine.Transition(startState);
-        if (Input.GetKeyDown(KeyCode.G))
-            stateMachine.Transition(gameplayState);
-        if(Input.GetKeyDown(KeyCode.P))
-            stateMachine.Transition(pauseState);
-        if (Input.GetKeyDown(KeyCode.L))
-            stateMachine.Transition(loseState);
-        if (Input.GetKeyDown(KeyCode.W))
-            stateMachine.Transition(winState);        
     }
 
-    void EnterstandbyState()
-    {
-        Debug.Log("Sleep State Start");
-    }
-
-    void UpdatestandbyState()
-    {
-        Debug.Log("Is In Sleep State");
-    }
-
-    void ExitstandbyState()
-    {
-        Debug.Log("Sleep State exit");
-    }
-    
     void EnterStartState()
     {
-        Debug.Log("Start State Start");
-    }
-
-    void UpdateStartState()
-    {
-        Debug.Log("Is In Start State");
-    }
-
-    void ExitStartState()
-    {
-        Debug.Log("Start State exit");
+        joystick.SetActive(false);
+        StartCoroutine(StartDelay());
     }
 
     void EnterGamePlayState()
     {
-        Debug.Log("GamePlay State Start");
+        joystick.SetActive(true);
     }
 
     void UpdateGamePlayState()
     {
-        Debug.Log("Is In Gameplay State");
+        
     }
 
     void ExitGamePlayState()
     {
-        Debug.Log("GamePlay State exit");
+         
     }
 
     void EnterWinState()
     {
-        Debug.Log("Win State Start");
-    }
-
-    void UpdateWinState()
-    {
-        Debug.Log("Is In Win State");
+         //show message
     }
 
     void ExitWinState()
     {
-        Debug.Log("Win State exit");
+         //exit
     }
 
     void EnterLoseState()
     {
-        Debug.Log("Lose State Start");
-    }
-
-    void UpdateLoseState()
-    {
-        Debug.Log("Is In Lose State");
+        //show message
     }
 
     void ExitLoseState()
     {
-        Debug.Log("Lose State exit");
+        //exit
     }
 
     void EnterPauseState()
     {
-        Debug.Log("Pause State Start");
-    }
-
-    void UpdatePauseState()
-    {
-        Debug.Log("Is In Pause State");
+        Time.timeScale = 0;
+        // TODO
+        // if back to game button selected 
+        // joystick.SetActive(true);
+        // stateMachine.Transition(gamePlayState)
+        // else if quit
+        // Application.Quit();
     }
 
     void ExitPauseState()
     {
-        Debug.Log("Pause State exit");
+        Time.timeScale = 1;
     }
     void EnterQuitState()
     {
-        Debug.Log("Quit State start");
-    }
-
-    void UpdateQuitState()
-    {
-        Debug.Log("Is In Quit State");
-    }
-
-    void ExitQuitState()
-    {
-        Debug.Log("Quit State exit");
+        Application.Quit();
     }
 }
