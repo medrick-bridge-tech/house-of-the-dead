@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-
+using UnityEngine;
 public class Inventory
 {
     private Dictionary<string, int> items;
@@ -35,5 +35,10 @@ public class Inventory
         }
         
         OnInventoryChange.Invoke(items);
+    }
+
+    public bool HasItem(string itemName)
+    {
+        return items.ContainsKey(itemName)
     }
 }
