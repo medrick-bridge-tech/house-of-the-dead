@@ -37,17 +37,12 @@ public class Inventory
         OnInventoryChange.Invoke(items);
     }
 
-    public ItemData ReturnItemData(string ItemDataName)
+    public bool HasItem(string itemName)
     {
-        ItemData _itemToBeReturned;
-        if (items.ContainsKey(ItemDataName))
+        if (items.ContainsKey(itemName))
         {
-            _itemToBeReturned = Resources.Load<ItemData>("InventoryItemsData/" + ItemDataName);
-            return _itemToBeReturned;
+            return items.ContainsKey(itemName);
         }
-        else
-        {
-            return null;
-        }
+        return false;
     }
 }

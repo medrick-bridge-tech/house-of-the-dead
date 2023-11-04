@@ -8,11 +8,11 @@ public class ItemPlace : MonoBehaviour
     [SerializeField] private LayerMask _layrMask;
     
 
-    public event Action OnAdd;
+    public event Action OnItemAdded;
 
     private void Awake()
     {
-        OnAdd += _itemPuzzle.AddItemToBePlaced;
+        OnItemAdded += _itemPuzzle.IncreasePlacedItemCount;
     }
     private void Update()
     {
@@ -24,10 +24,14 @@ public class ItemPlace : MonoBehaviour
             {
                 if (_inventoryUI.SelectedItem == _itemName && hit.collider.gameObject == gameObject)
                 {
-                    gameObject.GetComponent<MeshRenderer>().enabled = true;
-                    ItemData item = _inventoryUI.Inventory.ReturnItemData(_itemName);
-                    _inventoryUI.Inventory.RemoveItem(item);
-                    OnAdd.Invoke();
+                    void TurnOnMesh()
+                    {
+                        gameObject.GetComponent<MeshRenderer>().enabled = true;
+                        ItemData item = ItemLoader.ConvertNameToItemData(_itemName);
+                        _inventoryUI.Inventory.RemoveItem(item);
+                    }
+                    TurnOnMesh();
+                    OnItemAdded.Invoke();
                 }
             }
         }

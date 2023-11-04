@@ -3,7 +3,7 @@ using UnityEngine;
 using System;
 public class ItemPuzzle : Puzzle 
 {
-    private int _itemToBePlaced;
+    private int _placedItemCount;
     public string _selectedObject;
     private bool _isSolved = false;
     private AudioSource _listener;
@@ -56,15 +56,15 @@ public class ItemPuzzle : Puzzle
 
     private void CheckRequiredItems(string selectedItem)
     {
-        if (_requiredItems.Count == _itemToBePlaced)
+        if (_requiredItems.Count == _placedItemCount)
         {
             HandlePuzzleFinish();
             gameObject.GetComponent<BoxCollider>().enabled = false;
         }
     }
 
-    public void AddItemToBePlaced()
+    public void IncreasePlacedItemCount()
     {
-        _itemToBePlaced++;
+        _placedItemCount++;
     }
 }

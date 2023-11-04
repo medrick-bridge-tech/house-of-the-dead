@@ -11,17 +11,24 @@ public class InventoryUI : MonoBehaviour
     public List<ItemPresenter> slots;
     public Button actionButton;
     public Button bagButton;
-    private ItemLoader itemLoader;
     private Inventory inventory;
 
+    private static InventoryUI _instance;
+    public static InventoryUI Instance
+    {
+        get { return _instance; }
+    }
     public Inventory Inventory => inventory;
 
     public string SelectedItem { get; private set; }
 
+    private void Awake()
+    {
+        _instance = this;
+    }
     private void Start()
     {
         inventory = owner.Inventory;
-        itemLoader = new ItemLoader();
         inventory.OnInventoryChange += UpdateSlots;
 
         for (var i = 0; i < slots.Count; i++)
@@ -39,7 +46,7 @@ public class InventoryUI : MonoBehaviour
         foreach (var item in items)
         {
             var itemName = item.Key;
-            slots[i].Setup(itemName, itemLoader.GetSprite(itemName));
+            slots[i].Setup(itemName, ItemLoader.GetSprite(itemName));
             i++;
         }
     }
