@@ -16,7 +16,7 @@ namespace DefaultNamespace
 
         private void Start()
         {
-            imageComponent = GetComponent<Image>();
+            imageComponent = transform.GetChild(1).GetComponent<Image>();
         }
 
         public void Setup(string itemName, Sprite image)
@@ -30,7 +30,12 @@ namespace DefaultNamespace
         public void Clear()
         {
             itemName = "";
-            itemImage.sprite = null;
+            if (itemImage.sprite == null)
+            {
+                Color blackColor = Color.black;
+                itemImage.color = blackColor;
+            }
+            
             // TODO: Reset the counter text
         }
     }
