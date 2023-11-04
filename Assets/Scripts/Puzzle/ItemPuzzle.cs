@@ -10,7 +10,6 @@ public class ItemPuzzle : Puzzle
     private Inventory _myInventory;
 
     [SerializeField] private List<ItemData> _requiredItems;
-    [SerializeField] private InventoryUI _inventoryUI;
     [SerializeField] private Animator _onSolveAnimation;
     [SerializeField] private Animator _onStartPuzzleAnimation;
 
@@ -37,9 +36,9 @@ public class ItemPuzzle : Puzzle
     protected override void Update()
     {
         base.Update();
-        if (!_isSolved && _inventoryUI.SelectedItem != null)
+        if (!_isSolved && InventoryUI.Instance.SelectedItem != null)
         {
-            _selectedObject = _inventoryUI.SelectedItem;
+            _selectedObject = InventoryUI.Instance.SelectedItem;
             CheckRequiredItems(_selectedObject);
         }
     }
