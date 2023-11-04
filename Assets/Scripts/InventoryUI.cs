@@ -10,24 +10,35 @@ public class InventoryUI : MonoBehaviour
 {
     [SerializeField] private Character owner;
 
-    public List<ItemPresenter> slots;
-    public Button actionButton;
-    public Button bagButton;
-    private ItemLoader _itemLoader;
-    private Inventory _inventory;
+    [SerializeField] private List<ItemPresenter> slots;
+    [SerializeField] private Button actionButton;
+    [SerializeField] private Button bagButton;
     [SerializeField] private InventoryAnimation _inventoryAnimation;
     [SerializeField] private GameObject zoomPanel;
+    
     private Image _zoomPanelImage;
+    private Inventory _inventory;
+    private static InventoryUI _instance;
 
+    public static InventoryUI Instance
+    {
+        get { return _instance; }
+    }
+    
+    public Inventory Inventory => _inventory;
 
     public string SelectedItem { get; private set; }
 
+    private void Awake()
+    {
+        _instance = this;
+    }
     private void Start()
     {
         _inventory = owner.Inventory;
-        _itemLoader = new ItemLoader();
         _inventory.OnInventoryChange += UpdateSlots;
         _zoomPanelImage = zoomPanel.transform.GetChild(0).transform.GetChild(1).GetComponent<Image>();
+
         for (var i = 0; i < slots.Count; i++)
         {
             var t = i;
@@ -43,7 +54,7 @@ public class InventoryUI : MonoBehaviour
         foreach (var item in items)
         {
             var itemName = item.Key;
-            slots[i].Setup(itemName, _itemLoader.GetSprite(itemName));
+            slots[i].Setup(itemName, ItemLoader.GetSprite(itemName));
             i++;
         }
     }
