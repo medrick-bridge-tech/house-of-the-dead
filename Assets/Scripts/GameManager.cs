@@ -11,9 +11,9 @@ public class GameManager : MonoBehaviour
 
     private float startAnimationTimer = 11.5f;
 
-    private GameManager instance;
+    private static GameManager instance;
     
-    public GameManager Instance
+    public static GameManager Instance
     {
         get { return instance; }
     }
