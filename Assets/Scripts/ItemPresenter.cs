@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace DefaultNamespace
@@ -9,14 +10,21 @@ namespace DefaultNamespace
         // TODO: [SerializeField] private Text amountText;
 
         private string itemName;
+        public Image imageComponent;
 
         public string ItemName => itemName;
+
+        private void Start()
+        {
+            imageComponent = GetComponent<Image>();
+        }
 
         public void Setup(string itemName, Sprite image)
         {
             this.itemName = itemName;
             itemImage.sprite = image;
-            // TODO: amountText.text = amount.ToString();
+            // TODO: amountText.text =.;
+            
         }
 
         public void Clear()

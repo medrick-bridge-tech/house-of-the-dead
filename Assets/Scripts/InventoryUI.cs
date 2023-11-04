@@ -60,7 +60,7 @@ public class InventoryUI : MonoBehaviour
         if (_inventoryAnimation.IsMagnifierSelected)
         {
             zoomPanel.transform.GetChild(0).gameObject.SetActive(true);
-            var sprite = slots[index].transform.GetChild(1).GetComponent<Image>().sprite;
+            var sprite = slots[index].imageComponent.sprite;
             _zoomPanelImage.sprite = sprite;
         }
     }
