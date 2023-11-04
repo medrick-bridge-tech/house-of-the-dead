@@ -3,7 +3,6 @@ using System;
 public class ItemPlace : MonoBehaviour
 {
     [SerializeField] string _itemName;
-    [SerializeField] private InventoryUI _inventoryUI;
     [SerializeField] private ItemPuzzle _itemPuzzle;
     [SerializeField] private LayerMask _layrMask;
     
@@ -22,18 +21,24 @@ public class ItemPlace : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, _layrMask))
             {
-                if (_inventoryUI.SelectedItem == _itemName && hit.collider.gameObject == gameObject)
+                if (InventoryUI.Instance.SelectedItem == _itemName && hit.collider.gameObject == gameObject)
                 {
-                    void TurnOnMesh()
-                    {
-                        gameObject.GetComponent<MeshRenderer>().enabled = true;
-                        ItemData item = ItemLoader.ConvertNameToItemData(_itemName);
-                        _inventoryUI.Inventory.RemoveItem(item);
-                    }
-                    TurnOnMesh();
+                    ShowMesh();
+                    RemoveItemFromInventory();
                     OnItemAdded.Invoke();
                 }
             }
+        }
+
+        void ShowMesh()
+        {
+            gameObject.GetComponent<MeshRenderer>().enabled = true;
+        }
+
+        void RemoveItemFromInventory()
+        {
+            ItemData item = ItemLoader.ConvertNameToItemData(_itemName);
+            InventoryUI.Instance.Inventory.RemoveItem(item);
         }
     }
 }
