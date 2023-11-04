@@ -4,7 +4,7 @@ public class InventoryAnimation : MonoBehaviour
 {
     private RectTransform _rectTransform;
     private bool _isShowing = false;
-    public bool isMagnifierSelected { get; set; }
+    public bool IsMagnifierSelected { get; set; }
     
     [SerializeField] private Animator magnifierAnim;
 
@@ -29,14 +29,14 @@ public class InventoryAnimation : MonoBehaviour
 
     public void MagnifierSelected()
     {
-        if (isMagnifierSelected)
+        if (IsMagnifierSelected)
         {
-            isMagnifierSelected = false;
+            IsMagnifierSelected = false;
             magnifierAnim.SetBool("Selected", false);
         }
         else
         {
-            isMagnifierSelected = true;
+            IsMagnifierSelected = true;
             magnifierAnim.SetBool("Selected", true);
         }
     }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using DefaultNamespace;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +17,7 @@ public class InventoryUI : MonoBehaviour
     private Inventory _inventory;
     [SerializeField] private InventoryAnimation _inventoryAnimation;
     [SerializeField] private GameObject zoomPanel;
+    private Image _zoomPanelImage;
 
 
     public string SelectedItem { get; private set; }
@@ -25,7 +27,7 @@ public class InventoryUI : MonoBehaviour
         _inventory = owner.Inventory;
         _itemLoader = new ItemLoader();
         _inventory.OnInventoryChange += UpdateSlots;
-
+        _zoomPanelImage = zoomPanel.transform.GetChild(0).transform.GetChild(1).GetComponent<Image>();
         for (var i = 0; i < slots.Count; i++)
         {
             var t = i;
@@ -55,11 +57,11 @@ public class InventoryUI : MonoBehaviour
     private void SelectItemAtIndex(int index)
     {
         SelectedItem = slots[index].ItemName;
-        if (_inventoryAnimation.isMagnifierSelected)
+        if (_inventoryAnimation.IsMagnifierSelected)
         {
             zoomPanel.transform.GetChild(0).gameObject.SetActive(true);
             var sprite = slots[index].transform.GetChild(1).GetComponent<Image>().sprite;
-            zoomPanel.transform.GetChild(0).transform.GetChild(1).GetComponent<Image>().sprite = sprite;
+            _zoomPanelImage.sprite = sprite;
         }
     }
 
