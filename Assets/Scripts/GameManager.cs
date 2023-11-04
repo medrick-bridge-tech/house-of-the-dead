@@ -11,6 +11,17 @@ public class GameManager : MonoBehaviour
 
     private float startAnimationTimer = 11.5f;
 
+    private GameManager instance;
+    
+    public GameManager Instance
+    {
+        get { return instance; }
+    }
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {
