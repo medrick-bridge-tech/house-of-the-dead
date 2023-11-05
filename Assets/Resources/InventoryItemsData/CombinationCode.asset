@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a355cfd375d2bc408150fdb0ded37eb, type: 3}
   m_Name: CombinationCode
   m_EditorClassIdentifier: 
-  itemName: Combination Code
-  displayName: Combination Code
-  value: 1
+  itemName: CombinationCode
+  displayName: CombinationCode
   sprite: {fileID: 21300000, guid: ff55022653775684fbfcdbd246c3c7ac, type: 3}
