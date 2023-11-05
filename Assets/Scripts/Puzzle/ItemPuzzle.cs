@@ -28,9 +28,13 @@ public class ItemPuzzle : Puzzle
     
     private void OpenDoor()
     {
-        _onSolveAnimation.SetTrigger("RoomOneTrigger");
-        _listener.Play();
-        _onStartPuzzleAnimation.SetBool("OpenDoor", false);
+        _onSolveAnimation.SetTrigger("SolveAnim");
+        if (_listener != null)
+            _listener.Play();
+        if (_onStartPuzzleAnimation != null)
+        {
+            _onStartPuzzleAnimation.SetBool("StartAnim", false);
+        }
     }
 
     protected override void Update()
@@ -49,7 +53,10 @@ public class ItemPuzzle : Puzzle
         {
             base.HandleCharacterInteraction(character);
             _myInventory = character.Inventory;
-            _onStartPuzzleAnimation.SetBool("OpenDoor", true);
+            if (_onStartPuzzleAnimation != null)
+            {
+                _onStartPuzzleAnimation.SetBool("StartAnim", true);
+            }
         }
     }
 
