@@ -6,7 +6,7 @@ public class ItemPuzzle : Puzzle
     private int _placedItemCount;
     public string _selectedObject;
     private bool _isSolved = false;
-    private AudioSource _listener;
+    [SerializeField] private AudioSource _listener;
     private Inventory _myInventory;
 
     [SerializeField] private List<ItemData> _requiredItems;
@@ -17,7 +17,10 @@ public class ItemPuzzle : Puzzle
     {
         base.Awake();
         OnPuzzleSolved += OpenDoor;
-        _listener = gameObject.GetComponent<AudioSource>(); 
+        if (_listener == null)
+        {
+            _listener = gameObject.GetComponent<AudioSource>(); 
+        }
     }    
 
     public override void HandlePuzzleFinish()
@@ -28,9 +31,13 @@ public class ItemPuzzle : Puzzle
     
     private void OpenDoor()
     {
-        _onSolveAnimation.SetTrigger("RoomOneTrigger");
-        _listener.Play();
-        _onStartPuzzleAnimation.SetBool("OpenDoor", false);
+        _onSolveAnimation.SetTrigger("SolveAnim");
+        if (_listener != null)
+            _listener.Play();
+        if (_onStartPuzzleAnimation != null)
+        {
+            _onStartPuzzleAnimation.SetBool("StartAnim", false);
+        }
     }
 
     protected override void Update()
@@ -49,7 +56,10 @@ public class ItemPuzzle : Puzzle
         {
             base.HandleCharacterInteraction(character);
             _myInventory = character.Inventory;
-            _onStartPuzzleAnimation.SetBool("OpenDoor", true);
+            if (_onStartPuzzleAnimation != null)
+            {
+                _onStartPuzzleAnimation.SetBool("StartAnim", true);
+            }
         }
     }
 
