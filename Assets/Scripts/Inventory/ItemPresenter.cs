@@ -8,6 +8,7 @@ namespace DefaultNamespace
     {
         [SerializeField] private Image itemImage;
         // TODO: [SerializeField] private Text amountText;
+        [SerializeField] private Sprite emptySlotImage;
 
         private string itemName;
         public Image imageComponent;
@@ -30,11 +31,7 @@ namespace DefaultNamespace
         public void Clear()
         {
             itemName = "";
-            if (itemImage.sprite == null)
-            {
-                Color blackColor = Color.black;
-                itemImage.color = blackColor;
-            }
+            itemImage.sprite = emptySlotImage;
             
             // TODO: Reset the counter text
         }
