@@ -6,7 +6,7 @@ public class ItemPuzzle : Puzzle
     private int _placedItemCount;
     public string _selectedObject;
     private bool _isSolved = false;
-    private AudioSource _listener;
+    [SerializeField] private AudioSource _listener;
     private Inventory _myInventory;
 
     [SerializeField] private List<ItemData> _requiredItems;
@@ -17,7 +17,10 @@ public class ItemPuzzle : Puzzle
     {
         base.Awake();
         OnPuzzleSolved += OpenDoor;
-        _listener = gameObject.GetComponent<AudioSource>(); 
+        if (_listener == null)
+        {
+            _listener = gameObject.GetComponent<AudioSource>(); 
+        }
     }    
 
     public override void HandlePuzzleFinish()
