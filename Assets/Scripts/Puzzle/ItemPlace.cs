@@ -32,7 +32,11 @@ public class ItemPlace : MonoBehaviour
 
         void ShowMesh()
         {
-            gameObject.GetComponent<MeshRenderer>().enabled = true;
+            var mesh = gameObject.GetComponent<MeshRenderer>();
+            if (mesh != null)
+            {
+                mesh.enabled = true;
+            }
         }
 
         void RemoveItemFromInventory()
