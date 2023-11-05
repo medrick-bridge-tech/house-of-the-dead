@@ -1,6 +1,6 @@
 using MyStateMachine;
 using UnityEngine;
-using System;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class GameManager : MonoBehaviour
@@ -52,7 +52,6 @@ public class GameManager : MonoBehaviour
             gameLoopStateMachineGraph.AddVertex(exitState);
         
             gameLoopStateMachineGraph.AddEdge(startState, gameplayState);
-            gameLoopStateMachineGraph.AddEdge(startState,pauseState);
             gameLoopStateMachineGraph.AddEdge(gameplayState,winState);
             gameLoopStateMachineGraph.AddEdge(gameplayState,loseState);
             gameLoopStateMachineGraph.AddEdge(gameplayState,pauseState);
@@ -68,6 +67,27 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(startAnimationTimer);
         stateMachine.Transition(gameplayState);
+    }
+
+    public void PauseGame()
+    {
+        stateMachine.Transition(pauseState);
+    }
+
+    public void ResumeGame()
+    {
+        stateMachine.Transition(gameplayState);
+    }
+
+    public void QuitGame()
+    {
+        stateMachine.Transition(exitState);
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("Vertical Slice");
+        stateMachine.Transition(startState);
     }
 
     private void Update()
@@ -93,7 +113,7 @@ public class GameManager : MonoBehaviour
 
     void ExitGamePlayState()
     {
-         
+         //TODO : Save the game
     }
 
     void EnterWinState()
@@ -101,19 +121,9 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.ShowWinPanel();
     }
 
-    void ExitWinState()
-    {
-         //exit
-    }
-
     void EnterLoseState()
     {
         UIManager.Instance.ShowLosePanel();
-    }
-
-    void ExitLoseState()
-    {
-        //exit
     }
 
     void EnterPauseState()
@@ -121,18 +131,13 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         UIManager.Instance.HideJoyStick();
         UIManager.Instance.ShowPausePanel();
-        // TODO
-        // if back to game button selected 
-        // joystick.SetActive(true);
-        // stateMachine.Transition(gamePlayState)
-        // else if quit
-        // Application.Quit();
     }
 
     void ExitPauseState()
     {
         Time.timeScale = 1;
         UIManager.Instance.ShowJoyStick();
+        UIManager.Instance.HidePausePanel();
     }
     void EnterQuitState()
     {
