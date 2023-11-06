@@ -18,6 +18,7 @@ public class OpenDoor : Interactable
 
    private void HandleOpenDoorAnimation(Character character)
    {
+      audioSource.Play();
       animator.SetBool("IsOpen",true);
       if (insideItem != null)
       {
