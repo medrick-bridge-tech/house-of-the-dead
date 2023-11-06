@@ -2,17 +2,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using DG.Tweening;
-public class ItemPuzzle : Puzzle 
+public class ItemPuzzle : Puzzle
 {
-    private int _placedItemCount;
-    private string _selectedObject;
-    private bool _isSolved = false;
-    [SerializeField] private AudioSource _listener;
-    private Inventory _myInventory;
-
     [SerializeField] private List<ItemData> _requiredItems;
     [SerializeField] private Animator _onSolveAnimation;
     [SerializeField] private Animator _onStartPuzzleAnimation;
+    [SerializeField] private AudioSource _listener;
+
+    private int _placedItemCount;
+    private string _selectedObject;
+    private bool _isSolved = false;
+    private Inventory _myInventory;
 
     protected override void Awake()
     {
