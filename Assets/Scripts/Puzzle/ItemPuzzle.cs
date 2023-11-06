@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using DG.Tweening;
 public class ItemPuzzle : Puzzle 
 {
     private int _placedItemCount;
-    public string _selectedObject;
+    private string _selectedObject;
     private bool _isSolved = false;
     [SerializeField] private AudioSource _listener;
     private Inventory _myInventory;
@@ -52,6 +53,8 @@ public class ItemPuzzle : Puzzle
 
     protected override void HandleCharacterInteraction(Character character)
     {
+        Vector3 newPosition = character.transform.position + new Vector3(-0.4f, 0, 0);
+        character.transform.DOMove(newPosition , 1f);
         if (!_isSolved)
         {
             base.HandleCharacterInteraction(character);
