@@ -11,6 +11,16 @@ namespace MyStateMachine
             this.states = states;
         }
 
+        public void StartMachine()
+        {
+            CurrentState.EnterState();
+        }
+
+        public void StopMachine()
+        {
+            CurrentState.ExitState();
+        }
+
         public void Update()
         {
             if (CurrentState == null)
