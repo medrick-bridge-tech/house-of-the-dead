@@ -8,7 +8,7 @@ namespace DefaultNamespace
     {
         [SerializeField] private Image itemImage;
         // TODO: [SerializeField] private Text amountText;
-        [SerializeField] private Sprite emptySlotImage;
+        private Sprite emptySlotImage;
 
         private string itemName;
         public Image imageComponent;
@@ -18,6 +18,7 @@ namespace DefaultNamespace
         private void Start()
         {
             imageComponent = transform.GetChild(1).GetComponent<Image>();
+            emptySlotImage = Resources.Load<Sprite>("Sprites/PanelBackDark");
         }
 
         public void Setup(string itemName, Sprite image)
