@@ -49,6 +49,7 @@ public class InventoryUI : MonoBehaviour
     private void UpdateSlots(Dictionary<string, int> items)
     {
         ClearAllSlots();
+        SelectedItem = "";
 
         int i = 0;
         foreach (var item in items)
