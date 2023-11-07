@@ -24,15 +24,15 @@ namespace Enemy
         {
             if (isDetectingTarget == false)
             {
-                // Raycast multiple rays every 10 degrees
-                // If found target layer
+                //TODO: Raycast multiple rays every 10 degrees
+                //TODO: If found target layer
                 onTargetDeteted.Invoke(null);
                 isDetectingTarget = true;
             }
             else
             {
-                // Raycast multiple rays
-                // If lost target
+                //TODO: Raycast multiple rays
+                //TODO: If lost target
                 onTargetLost.Invoke();
                 isDetectingTarget = false;
             }
