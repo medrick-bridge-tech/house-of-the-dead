@@ -1,4 +1,6 @@
-﻿using MyStateMachine;
+﻿using System;
+using System.Collections;
+using MyStateMachine;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -6,28 +8,29 @@ namespace Enemy
 {
     public class Enemy : MonoBehaviour
     {
-        [SerializeField] private ViewCone _viewCone;
-        [SerializeField] private NavMeshAgent _agent;
+        [SerializeField] private ViewCone viewCone;
+        [SerializeField] private NavMeshAgent agent;
 
-        private StateMachine stateMachine;
+        private StateMachine enemyStateMachine;
         private Transform detectedTarget;
         private State searchState, patrolState, distractState, followState;
-        
+
         private void Awake()
         {
             var enemyStateMachineGraph = new Graph<State>();
             CreateState();
             CreateStateMachineGraph();
-            stateMachine = new StateMachine(enemyStateMachineGraph, patrolState);
+            enemyStateMachine = new StateMachine(enemyStateMachineGraph, patrolState);
+            enemyStateMachine.StartMachine();
             
-            _viewCone.Setup(HandleTargetDetection, HandleTargetLost);
+            viewCone.Setup(HandleTargetDetection, HandleTargetLost);
 
             void CreateState()
             {
                 searchState = new State(EnterSearchState, () => { }, () => { });
-                patrolState = new State(EnterPatrolState, () => { }, () => { });
-                distractState = new State(EnterDistractState, () => { }, () => { });
-                followState = new State(EnterFollowState, UpdateFollowState, () => { });
+                patrolState = new State(() => { }, () => { }, () => { });
+                distractState = new State(() => { }, UpdateDistractState, () => { });
+                followState = new State(() => { }, () => { }, () => { });
             }
             
             void CreateStateMachineGraph()
@@ -43,70 +46,55 @@ namespace Enemy
                 enemyStateMachineGraph.AddEdge(searchState, patrolState);
                 enemyStateMachineGraph.AddEdge(searchState, followState);
                 enemyStateMachineGraph.AddEdge(distractState, followState);
-                enemyStateMachineGraph.AddEdge(distractState, patrolState);
+                enemyStateMachineGraph.AddEdge(distractState, searchState);
             }
         }
 
         private void HandleTargetDetection(GameObject target)
         {
             detectedTarget = target.transform;
-            // TODO: Set agent target to target
+            enemyStateMachine.Transition(followState);
         }
 
         private void HandleTargetLost()
         {
             detectedTarget = null;
-            // TODO: Move to search state
-        }
-        
-        void EnterPatrolState()
-        {
             
-        }
-        
-        void EnterSearchState()
-        {
-            
-        }
-        
-        void EnterDistractState()
-        {
-            
-        }
-        
-        void EnterFollowState()
-        {
-            
-        }
-        
-        void UpdateFollowState()
-        {
-            
-        }
-        
-        void UpdatePatrolState()
-        {
-            
-        }
-        
-        void UpdateSearchState()
-        {
-            
+            if (enemyStateMachine.CurrentState == followState)
+                enemyStateMachine.Transition(searchState);
         }
 
-        void ExitPatrolState()
+        private void HandleDistraction(GameObject target)
         {
-            
+            detectedTarget = target.transform;
+            agent.SetDestination(detectedTarget.position);
+            enemyStateMachine.Transition(distractState);
         }
-        
-        void ExitDistractState()
+
+        private void Update()
         {
-            
+            enemyStateMachine.Update();
         }
-        
-        void ExitSearchState()
+
+        void EnterSearchState()
         {
+            StartCoroutine(KeepSearching());
+        }
+
+        private IEnumerator KeepSearching()
+        {
+            yield return new WaitForSeconds(5);
             
+            if (enemyStateMachine.CurrentState == searchState)
+                enemyStateMachine.Transition(patrolState);
+        }
+
+        void UpdateDistractState()
+        {
+            float distance = Vector3.Distance(transform.position, detectedTarget.position);
+            
+            if (distance < agent.stoppingDistance)
+                enemyStateMachine.Transition(searchState);
         }
     }
 }
