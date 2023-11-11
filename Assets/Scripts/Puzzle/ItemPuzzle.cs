@@ -53,10 +53,10 @@ public class ItemPuzzle : Puzzle
 
     protected override void HandleCharacterInteraction(Character character)
     {
-        Vector3 newPosition = character.transform.position + new Vector3(-0.4f, 0, 0);
-        character.transform.DOMove(newPosition , 1f);
         if (!_isSolved)
         {
+            Vector3 newPosition = character.transform.position + new Vector3(-0.4f, 0, 0);
+            character.transform.DOMove(newPosition , 1f);
             base.HandleCharacterInteraction(character);
             _myInventory = character.Inventory;
             if (_onStartPuzzleAnimation != null)
