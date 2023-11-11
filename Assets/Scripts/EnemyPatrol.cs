@@ -7,7 +7,7 @@ public class EnemyPatrol : MonoBehaviour
     [SerializeField] private List<GameObject> _patrolPoint;
     [SerializeField] private List<AudioClip> _zombieAudioClip;
     
-    private int destPoint = 0;
+    private int destinationPointIndex = 0;
     private float _minDistanceToDestination = .5f;
     private NavMeshAgent _agent;
     private AudioSource _zombieAudioSource;
@@ -29,7 +29,7 @@ public class EnemyPatrol : MonoBehaviour
             {
                 closestDistance = dSqrToTarget;
                 nearestPatrolPoint = potentialTarget;
-                destPoint = enemyPatrolPoints.IndexOf(potentialTarget);
+                destinationPointIndex = enemyPatrolPoints.IndexOf(potentialTarget);
             }
         }
         return nearestPatrolPoint;
@@ -53,8 +53,8 @@ public class EnemyPatrol : MonoBehaviour
     {
         if (_patrolPoint.Count == 0)
             return;
-        _agent.destination = _patrolPoint[destPoint].transform.position;
-        destPoint = (destPoint + 1) % _patrolPoint.Count;
+        _agent.destination = _patrolPoint[destinationPointIndex].transform.position;
+        destinationPointIndex = (destinationPointIndex + 1) % _patrolPoint.Count;
     }
 
     private void Update()
