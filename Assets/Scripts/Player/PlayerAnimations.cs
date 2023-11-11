@@ -37,4 +37,8 @@ public class PlayerAnimations : MonoBehaviour
             animator.SetTrigger("AttemptOpenDoor");
         
     }
+    public void ThrowPlateAnimation()
+    {
+        animator.SetTrigger("Throw");
+    }
 }
