@@ -2,7 +2,7 @@ namespace MyStateMachine
 {
     public class StateMachine
     {
-        private State CurrentState;
+        public State CurrentState;
         private Graph<State> states;
 
         public StateMachine(Graph<State> states, State initialState)
