@@ -6,12 +6,13 @@ using UnityEngine;
 public class Plate : MonoBehaviour
 {
     [SerializeField] private AudioSource breakSound;
-    private bool _breakSoundCooldown = true;
+    private bool isBreaking = true;
+    
     public void OnCollisionEnter(Collision other)
     {
-        if (_breakSoundCooldown)
+        if (isBreaking)
         {
-            _breakSoundCooldown = false;
+            isBreaking = false;
             StartCoroutine(ResetPlateDelay());
         }
     }
@@ -24,7 +25,7 @@ public class Plate : MonoBehaviour
         plateRigid.constraints = RigidbodyConstraints.FreezeAll;
         plateRigid.useGravity = false;
         transform.position = transform.parent.position;
-        _breakSoundCooldown = true;
+        isBreaking = true;
         gameObject.SetActive(false);
     }
 }
