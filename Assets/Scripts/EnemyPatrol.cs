@@ -16,6 +16,21 @@ public class EnemyPatrol : MonoBehaviour
     {
         _agent = GetComponent<NavMeshAgent>();
     }
+
+    private void Start()
+    {
+        NavMeshAgent agent = GetComponent<NavMeshAgent>();
+        _zombieAudioSource = GetComponent<AudioSource>();
+        GoToNearestPoint();
+        FunctionCaller.RepeatAudio(RandomSound, 5f);
+    }
+
+    private void Update()
+    {
+        if (!_agent.pathPending && _agent.remainingDistance < _minDistanceToDestination)
+            GotoNextPoint();
+    }
+
     private GameObject FindNearestPatrolPoint(List<GameObject> enemyPatrolPoints)
     {
         GameObject nearestPatrolPoint = null;
@@ -35,15 +50,6 @@ public class EnemyPatrol : MonoBehaviour
         return nearestPatrolPoint;
     }
 
-    private void Start()
-    {
-        NavMeshAgent agent = GetComponent<NavMeshAgent>();
-        _zombieAudioSource = GetComponent<AudioSource>();
-        agent.destination = FindNearestPatrolPoint(_patrolPoint).transform.position;
-        GoToNearestPoint();
-        RandomSoundness();
-    }
-
     private void GoToNearestPoint()
     {
         _agent.destination = FindNearestPatrolPoint(_patrolPoint).transform.position;
@@ -57,21 +63,9 @@ public class EnemyPatrol : MonoBehaviour
         destinationPointIndex = (destinationPointIndex + 1) % _patrolPoint.Count;
     }
 
-    private void Update()
-    {
-        if (!_agent.pathPending && _agent.remainingDistance < _minDistanceToDestination)
-            GotoNextPoint();
-    }
-
-    private void CallAudio()
-    {
-        Invoke("RandomSoundness", 5);
-    }
-
-    private void RandomSoundness()
+    private void RandomSound()
     {
         _zombieAudioSource.clip = _zombieAudioClip[Random.Range(0, _zombieAudioClip.Count)];
         _zombieAudioSource.Play();
-        CallAudio();
     }
 }
