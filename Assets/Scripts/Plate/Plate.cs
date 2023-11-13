@@ -6,24 +6,48 @@ using UnityEngine;
 public class Plate : MonoBehaviour
 {
     [SerializeField] private AudioSource breakSound;
-    private bool isBreaking = false;
-    
+    private bool isBreaking;
+    private Action<GameObject> onPlateDetected;
+    private GameObject player;
+
+    private void Awake()
+    {
+        player = transform.parent.gameObject;
+    }
+
+    public void SetUp(Action<GameObject> targetDetectedCallback)
+    {
+        onPlateDetected += targetDetectedCallback;
+    }
     public void OnCollisionEnter(Collision other)
     {
         if (!isBreaking)
         {
-            isBreaking = true;
-            StartCoroutine(ResetPlateDelay());
+            ThrowPlate();
+            StartCoroutine(WaitForReset());
         }
     }
 
-    IEnumerator ResetPlateDelay()
+    private IEnumerator WaitForReset()
     {
-        breakSound.Play();
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(10.0f);
+        ResetPlate();
+    }
+
+    private void ThrowPlate()
+    {
+        isBreaking = true;
+        onPlateDetected.Invoke(transform.gameObject);
         Rigidbody plateRigid = GetComponent<Rigidbody>();
         plateRigid.constraints = RigidbodyConstraints.FreezeAll;
         plateRigid.useGravity = false;
+        transform.parent = null;
+        breakSound.Play();
+    }
+
+    public void ResetPlate()
+    {
+        transform.parent = player.transform;
         transform.position = transform.parent.position;
         isBreaking = false;
         gameObject.SetActive(false);
