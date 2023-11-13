@@ -12,7 +12,8 @@ namespace Enemy
         [SerializeField] private ViewCone viewCone;
         [SerializeField] private Plate plate;
         [SerializeField] private NavMeshAgent agent;
-
+        [SerializeField] private Animator animator;
+        
         private StateMachine enemyStateMachine;
         private Transform detectedTarget;
         private GameObject plateGameObj;
@@ -57,6 +58,8 @@ namespace Enemy
 
         private void HandleTargetDetection(GameObject target)
         {
+            animator.SetBool("HasDetected", true);
+            animator.SetBool("HasLost", false);
             detectedTarget = target.transform;
             StartCoroutine(StartFollowing());
         }
@@ -70,6 +73,8 @@ namespace Enemy
         private void HandleTargetLost()
         {
             detectedTarget = null;
+            animator.SetBool("HasLost", true);
+            animator.SetBool("HasDetected", false);
             
             if (enemyStateMachine.CurrentState == followState)
                 enemyStateMachine.Transition(searchState);
