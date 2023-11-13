@@ -26,6 +26,7 @@ public class ItemPlace : MonoBehaviour
                     ShowMesh();
                     RemoveItemFromInventory();
                     OnItemAdded.Invoke();
+                    Destroy(this);
                 }
             }
         }

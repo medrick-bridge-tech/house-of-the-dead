@@ -19,7 +19,6 @@ public class EnemyPatrol : MonoBehaviour
 
     private void Start()
     {
-        NavMeshAgent agent = GetComponent<NavMeshAgent>();
         _zombieAudioSource = GetComponent<AudioSource>();
         GoToNearestPoint();
         FunctionCaller.RepeatAudio(RandomSound, 5f);
