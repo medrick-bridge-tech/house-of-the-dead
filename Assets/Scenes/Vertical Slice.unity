@@ -3369,6 +3369,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zombie
       objectReference: {fileID: 0}
+    - target: {fileID: 4559372358544071006, guid: b49f0ff7d3a026d4d810c13daebc96d4, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d30615ed4d55b6244bb393bfb35da25a, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b49f0ff7d3a026d4d810c13daebc96d4, type: 3}
 --- !u!1 &2021544196
@@ -3388,7 +3392,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2021544197
 MonoBehaviour:
   m_ObjectHideFlags: 0
