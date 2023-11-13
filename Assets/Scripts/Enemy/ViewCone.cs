@@ -8,12 +8,14 @@ namespace Enemy
         [SerializeField] private LayerMask targetLayer;
         [SerializeField] [Range(.5f, 5f)] private float range = 3;
         [SerializeField] [Range(0f, 180f)] private float viewDegree = 135;
-
+        
         private Action<GameObject> onTargetDetected;
         private Action onTargetLost;
 
         private bool isTargetDetected;
         private int startAngle, lastAngle;
+        
+        Vector3 height = new Vector3(0,1,0);
 
         private void Start()
         {
@@ -47,7 +49,7 @@ namespace Enemy
             for (int rayAngle = startAngle; rayAngle <= lastAngle; rayAngle += 10)
             {
                 Vector3 direction = GetDirection(rayAngle);
-                Ray ray = new Ray(transform.position, direction);
+                Ray ray = new Ray(transform.position + height, direction);
                     
                 if (Physics.Raycast(ray, out hit, range, targetLayer))
                 {
@@ -66,8 +68,8 @@ namespace Enemy
             for (int rayAngle = startAngle; rayAngle <= lastAngle; rayAngle += 10)
             {
                 Vector3 direction = GetDirection(rayAngle);
-                Ray ray = new Ray(transform.position, direction);
-                    
+                Ray ray = new Ray(transform.position + height, direction);
+
                 if (Physics.Raycast(ray, out hit, range, targetLayer))
                 {
                     checkAllRay = true;
