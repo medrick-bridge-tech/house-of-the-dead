@@ -50,10 +50,9 @@ public class Interactable : MonoBehaviour
         {
             inputManager.DeActivateInteractionButton();
             onInteraction.Invoke(_interactor);
+            
             if (shouldBeDestroyedOnInteract)
-            {
-                Destroy(gameObject);
-            }
+                gameObject.SetActive(false);
         }
     }
 
